@@ -1,0 +1,20 @@
+#tblPage{
+    border-collapse: separate;
+    border-spacing: 150px 0;
+    }
+    #tblQpage > #txArea{
+       
+        /* padding:50px 0px 0px 0px; */
+        /* float:center; */
+    }
+    #sType{
+        display:none;
+    }
+    #qType{
+        display:none;
+    }
+
+#divbtn{
+    float: right;
+    margin-right: 500px;
+}

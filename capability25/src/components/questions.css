@@ -1,0 +1,12 @@
+#tblQues{
+    /* border-collapse: separate;
+    border-spacing: 150px 0;
+    border:1px solid grey; */
+}
+NavLink{
+    color:white;
+    background-color: blue;
+}
+.modal-backdrop {
+    position: static; 
+}
