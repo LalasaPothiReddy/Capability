@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { NavLink } from 'react-router-dom';
-import questionsMainData from "../services/questions.json"
+import axios from 'axios';
 import Menu from './menu';
 
 class Questions extends Component {
@@ -9,26 +9,27 @@ class Questions extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            isLoaded:false,
             id: '',
-            questionName: '',
-            questionType: '',
-            questionComplexity: '',
+            description: '',
+            questiontype: '',
+            questioncomplexity: '',
             Record: {
                 id: '',
-                questionName: '',
-                questionType: '',
-                questionComplexity: ''
+                description: '',
+                questiontype: '',
+                questioncomplexity: ''
             },
-            questionsDatas: questionsMainData,
+            questionsDatas: [],
             currentElement: -1,
         }
     }
     handleEdit(data, id) {
         this.setState({
             id: data.id,
-            questionName: data.questionName,
-            questionType: data.questionType,
-            questionComplexity: data.questionComplexity,
+            description: data.description,
+            questiontype: data.questiontype,
+            questioncomplexity: data.questioncomplexity,
             currentElement: id
         })
     }
@@ -36,9 +37,9 @@ class Questions extends Component {
     handleSave(index) {
         var RecordDummy = this.state.Record;
         RecordDummy.id = this.state.id;
-        RecordDummy.questionName = this.state.questionName;
-        RecordDummy.questionType = this.state.questionType;
-        RecordDummy.questionComplexity = this.state.questionComplexity;
+        RecordDummy.description = this.state.description;
+        RecordDummy.questiontype = this.state.questiontype;
+        RecordDummy.questioncomplexity = this.state.questioncomplexity;
         var questionsDatasDummy = this.state.questionsDatas;
         questionsDatasDummy[index] = RecordDummy;
         // Make a backend call with RecordDummy
@@ -47,36 +48,45 @@ class Questions extends Component {
             questionsDatas: questionsDatasDummy,
             currentElement: -1,
             id: '',
-            questionName: '',
-            questionType: '',
-            questionComplexity: '',
+            description: '',
+            questiontype: '',
+            questioncomplexity: '',
             Record: {
                 id: '',
-                questionName: '',
-                questionType: '',
-                questionComplexity: ''
+                description: '',
+                questiontype: '',
+                questioncomplexity: ''
             }
         })
     }
 
     handleQuetionName(e) {
         this.setState({
-            questionName: e.target.value
+            description: e.target.value
         });
     }
 
     handleQuetionType(e) {
         this.setState({
-            questionType: e.target.value
+            questiontype: e.target.value
         });
     }
 
     handleQuetionComplexity(e) {
         this.setState({
-            questionComplexity: e.target.value
+            questioncomplexity: e.target.value
         });
     }
-
+    componentWillMount() {
+        axios.get("https://api.myjson.com/bins/h7spa")
+          .then(resData => {
+            const questionsDatas = resData.data;
+            this.setState({
+                questionsDatas: questionsDatas,
+              isLoaded:true
+            })
+          })
+      }
 
     render() {
         return (
@@ -89,7 +99,7 @@ class Questions extends Component {
                 <br />
                 <br />
                 <div>
-                    <table id="tblQues" class="table table-bordered table-striped text-center">
+                    <table id="tblQues" class="table table-bordered table-striped text-center" style={{display: this.state.isLoaded === true ? 'inline-table' : 'none'}} >
                         <thead class="thead-light">
                             <tr>
                                 <th>S.No</th><th>Questions</th><th>Type</th>
@@ -100,9 +110,9 @@ class Questions extends Component {
                             {this.state.questionsDatas.map((questionsData, index) => {
                                 return <tr>
                                     <td>{questionsData.id}</td>
-                                    <td >{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionName(e) }} defaultValue={questionsData.questionName} /> : questionsData.questionName}</td>
-                                    <td>{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionType(e) }} defaultValue={questionsData.questionType} /> : questionsData.questionType}</td>
-                                    <td>{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionComplexity(e) }} defaultValue={questionsData.questionComplexity} /> : questionsData.questionComplexity}</td>
+                                    <td >{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionName(e) }} defaultValue={questionsData.description} /> : questionsData.description}</td>
+                                    <td>{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionType(e) }} defaultValue={questionsData.questiontype} /> : questionsData.questiontype}</td>
+                                    <td>{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionComplexity(e) }} defaultValue={questionsData.questioncomplexity} /> : questionsData.questioncomplexity}</td>
                                     <td>
                                         <label class="switch">
                                             <input type="checkbox" />

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './questionTopic.css';
-import questionTopicData from '../services/quetionstopic.json';
 import Menu from './menu';
 import axios from 'axios';
 
@@ -8,6 +7,7 @@ class QuestionTopic extends Component {
   constructor(props) {
     super(props);
 this.state = {
+  isLoaded:false,
     topicData: [],
     addTopic: false,
      editElement:-1,
@@ -54,12 +54,16 @@ handleSave(index) {
   const dummyRecord = this.state.Record;
   dummyRecord.name=this.state.name;
   dummyRecord.acronym=this.state.acronym;
+  dummyRecord.status = this.state.status;
  const dummytopicData = this.state.topicData;
  dummytopicData[index] = dummyRecord;
  this.setState({
         editElement:-1,
         topicData:dummytopicData,
-      
+        Record:dummyRecord,
+        name:'',
+        acronym:'',
+        status:'',
         Record:{
      name:'',
      acronym:'', 
@@ -79,15 +83,14 @@ handleStatus(data, status, index) {
   dummytopicData[index] = dummyRecord;
   this.setState({
       topicData: dummytopicData,
-
-      Record: {
-          name: '',
-          acronym: '',
-          status: ''
+      status:status === 0 ? 1 : 0,
+      Record:{
+        name:'',
+        acronym:'',
+        status: ''
       }
 
   });
-  alert(JSON.stringify(this.state.topicData));
 }
 handleSaveData(){
   const dummyRecord = this.state.Record;
@@ -114,7 +117,8 @@ componentWillMount(){
   .then(response=>{
     const topicData=response.data;
     this.setState({
-      topicData
+      topicData,
+      isLoaded:true
     })
   })
 }
@@ -127,7 +131,7 @@ componentWillMount(){
            <td>{this.state.editElement===index ? <input type='text' className="form-control" onChange={(e)=>{this.handleAcronym(e)}} defaultValue={item.acronym}/>:item.acronym}</td>
           <td>
               <label className="switch" id="status">
-                <input type="checkbox"  checked={item.status} onChange={() => this.handleStatus(item, item.status, index)}/>
+                <input type="checkbox"  checked={item.status===1?true:false} disabled = {this.state.editElement === index?false:true} onChange={() => this.handleStatus(item, item.status, index)}/>
                 <span className="slider round" />
               </label>
             </td>
@@ -155,7 +159,7 @@ componentWillMount(){
         </div>
             <br />
        
-        <table className="table table-striped">
+        <table className="table table-striped" style={{display: this.state.isLoaded === true ? 'inline-table' : 'none'}}>
         <thead className="thead-light">
             <th>Name</th>
             <th>Acronym</th>
