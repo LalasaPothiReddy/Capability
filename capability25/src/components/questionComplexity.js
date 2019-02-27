@@ -7,6 +7,7 @@ class QuestionComplexity extends Component {
     super(props);
     this.state = {
       isLoaded:false,
+      error:false,
       addComplex: false,
       complexData: [],
       editElement: -1,
@@ -41,6 +42,12 @@ class QuestionComplexity extends Component {
     dummyRecord.name = this.state.name;
     dummyRecord.acronym = this.state.acronym;
     dummyRecord.status = this.state.status;
+    if(dummyRecord.name === "" ||  dummyRecord.acronym === ""  ){
+      this.setState({
+        error:true
+      })
+    }
+    else{
     const dummycomplexData = this.state.complexData;
     dummycomplexData[index] = dummyRecord;
     this.setState({
@@ -56,7 +63,7 @@ class QuestionComplexity extends Component {
       }
     });
   }
-
+  }
   handleName(e) {
     this.setState({
       name: e.target.value
@@ -67,10 +74,22 @@ class QuestionComplexity extends Component {
       acronym: e.target.value
     })
   }
+  handleClick(){
+    this.setState({
+      error:false
+    })
+   
+  }
   handleSaveData() {
     const dummyRecordsData = this.state.RecordsData;
     dummyRecordsData.name = this.state.name;
     dummyRecordsData.acronym = this.state.acronym;
+    if(dummyRecordsData.name === "" ||  dummyRecordsData.acronym === ""  ){
+      this.setState({
+        error:true
+      })
+    }
+    else{
     const dummycomplexData = this.state.complexData;
     dummycomplexData[this.state.complexData.length + 1] = dummyRecordsData;
     this.setState({
@@ -87,6 +106,7 @@ class QuestionComplexity extends Component {
       }
     })
   }
+}
   handleStatus(data, status, index) {
     const dummyRecord = this.state.RecordsData;
     dummyRecord.name = data.name;
@@ -105,6 +125,7 @@ class QuestionComplexity extends Component {
     });
     alert(JSON.stringify(this.state.complexData));
   }
+
   componentWillMount() {
     axios.get("https://api.myjson.com/bins/rr63y")
       .then(resData => {
@@ -160,8 +181,16 @@ class QuestionComplexity extends Component {
             Add Question Complex
           </button>
         </div>
-        <br />
-
+        <div class="alert" style={{display: this.state.error === true ? 'block':'none'}}>
+                    <span class="closebtn" onClick={()=>{this.handleClick()}}>&times;</span>
+                    <strong>Please Enter Details....</strong>
+                  </div>
+                  <br />
+        <div class="image-container" style={{ display: this.state.isLoaded === false ? 'block' : 'none' }}>
+          <p class="image-holder">
+            <img  src={require('./12345.gif')}  />
+          </p>
+        </div>
         <table className="table table-striped" style={{display: this.state.isLoaded === true ? 'inline-table' : 'none'}}>
           <thead className="thead-light">
             <th>Name</th>

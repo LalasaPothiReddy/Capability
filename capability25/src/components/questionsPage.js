@@ -130,7 +130,7 @@ this.setState({
                     <center>
                         <table id="tblQpage">
                             <tr>
-                                <textarea rows="10" cols="100" id="txArea"  /></tr><br /><br /></table></center>
+                                <textarea class="form-control" rows="10" cols="100" id="txArea"  /></tr><br /><br /></table></center>
                     <center><table><tr><td><label>Upload Image:</label></td><input type="file" /></tr>
                     </table></center>
                     <div id="divbtn">

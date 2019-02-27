@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import Menu from "./menu";
+import './questionType.css';
 
 class QuestionType extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class QuestionType extends Component {
     this.state = {
       isLoaded:false,
       addType: false,
+      error:false,
       typeData: [],
       editElement: -1,
       name: '',
@@ -29,6 +31,12 @@ class QuestionType extends Component {
       });
     }
   };
+  handleClick(){
+    this.setState({
+      error:false
+    })
+   
+  }
   handleEdit(data, id) {
     this.setState({
       name: data.name,
@@ -42,13 +50,19 @@ class QuestionType extends Component {
     dummyRecord.name = this.state.name;
     dummyRecord.acronym = this.state.acronym;
     dummyRecord.status=this.state.status;
+    if(dummyRecord.name === "" ||  dummyRecord.acronym === ""  ){
+      this.setState({
+        error:true
+      })
+    }
+    else{
     const dummytypeData = this.state.typeData;
     dummytypeData[index] = dummyRecord;
     this.setState({
       RecordsData: dummyRecord,
       editElement: -1,
       typeData: dummytypeData,
-       name:'',
+      name:'',
       acronym:'',
       status:'',
       RecordsData: {
@@ -58,7 +72,7 @@ class QuestionType extends Component {
       }
     });
   }
-
+  }
   handleName(e) {
     this.setState({
       name: e.target.value
@@ -73,6 +87,12 @@ class QuestionType extends Component {
     const dummyRecordsData = this.state.RecordsData;
     dummyRecordsData.name = this.state.name;
     dummyRecordsData.acronym = this.state.acronym;
+    if(dummyRecordsData.name === "" ||  dummyRecordsData.acronym === ""  ){
+      this.setState({
+        error:true
+      })
+    }
+    else{
     const dummytypeData = this.state.typeData;
     dummytypeData[this.state.typeData.length + 1] = dummyRecordsData;
     this.setState({
@@ -90,6 +110,7 @@ class QuestionType extends Component {
       }
     })
   }
+}
   handleStatus(data, status, index) {
     const dummyRecord = this.state.RecordsData;
     dummyRecord.name = data.name;
@@ -157,6 +178,16 @@ class QuestionType extends Component {
             Add Question Type
           </button>
         </div>
+        <div class="alert" style={{display: this.state.error === true ? 'block':'none'}}>
+                    <span class="closebtn" onClick={()=>{this.handleClick()}}>&times;</span>
+                    <strong>Please Enter Details....</strong>
+                  </div>
+        <div class="image-container" style={{ display: this.state.isLoaded === false ? 'block' : 'none' }}>
+          <p class="image-holder">
+            <img  src={require('./12345.gif')}  />
+          </p>
+        </div>
+        
         <br />
 
         <table className="table table-striped" style={{display: this.state.isLoaded === true ? 'inline-table' : 'none'}}>

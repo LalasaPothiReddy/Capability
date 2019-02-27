@@ -1,0 +1,24 @@
+.alert {
+    /* padding: 20px; */
+    background-color: #fd6a6a;
+    color: white;
+    width: 35%;
+      margin-left: 251px;
+      margin-top: -37px;
+      border-radius: 10px;
+      height: 38px;
+      padding-top: 5px !important;
+  }
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .closebtn:hover {
+    color: black;
+  }

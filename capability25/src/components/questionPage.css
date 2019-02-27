@@ -16,5 +16,9 @@
 
 #divbtn{
     float: right;
-    margin-right: 500px;
+    margin-right: 645px;
+}
+#divbtn button{
+margin-right:16px;
+width:100px;
 }
