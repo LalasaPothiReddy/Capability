@@ -130,6 +130,7 @@ class QuestionTopic extends Component {
   componentWillMount() {
     axios.get("https://api.myjson.com/bins/h1d7y")
       .then(response => {
+        console.log(response.data);
         const topicData = response.data;
         this.setState({
           topicData,

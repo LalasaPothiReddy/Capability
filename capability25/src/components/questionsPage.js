@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import './questionPage.css';
 import Menu from './menu';
+import axios from 'axios';
 
 class QuestionsPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            topicData:[],
+            complexData:[],
+            typeData: [],
             topicDropdownValue: '--Select--',
             complexityDropdownValue: '--Select--',
+            typeDropdownValue:'--Select--',
             option1:'',
             option2:'',
             option3:'',
@@ -18,7 +23,7 @@ class QuestionsPage extends Component {
                 option2:'',
                 option3:'',
                 option4:'',
-            }
+            },
         }
     }
     handleOption1(e){
@@ -41,18 +46,12 @@ class QuestionsPage extends Component {
                     option4:e.target.value
                 })
             }
-    handleQuestions = () => {
-        var type = document.getElementById("drpType").value;
-        //alert(type);
-        if (type === "Single" || type === "Multiple") {
-            document.getElementById("sType").style.display = "block";
-            document.getElementById("qType").style.display = "none";
-        }
-        else if (type === "Query") {
-            document.getElementById("qType").style.display = "block";
-            document.getElementById("sType").style.display = "none";
-        }
-    }
+    handleQuestions = (e) => {
+        this.setState({
+            typeDropdownValue:e.target.value
+        })      
+        console.log(this.state.typeDropdownValue);
+       }
 
     handleTopicDropdown = (e) => {
         this.setState({
@@ -70,6 +69,34 @@ this.setState({
     questionData:e.target.value
 })
     }
+    componentWillMount() {
+        axios.get("https://api.myjson.com/bins/h1d7y")
+          .then(response => {
+            console.log(response.data);
+            const topicData = response.data;
+        this.setState({
+              topicData,
+              isLoaded: true
+            })
+          })
+          axios.get("https://api.myjson.com/bins/rr63y")
+          .then(resData => {
+            const complexData = resData.data;
+            console.log(complexData);
+            this.setState({
+              complexData: complexData,
+              isLoaded:true
+            })
+          })
+          axios.get("https://api.myjson.com/bins/vi77y")
+          .then(res => {
+            const typeData = res.data;
+            this.setState({
+              typeData : typeData,
+              isLoaded:true
+            })
+          })
+        }
 
     render() {
         return (
@@ -79,37 +106,40 @@ this.setState({
 <table id="tblPage">
                     <tr><td>
                         <label>Select Topic</label>
-                        <select className="form-control" onChange={this.handleTopicDropdown}>
-                            <option >--Select--</option>
-                            <option >React Js</option>
-                            <option>My Sql</option>
-                            <option>PHP</option>
-                            <option>Javascript</option>
-                            <option>Angular JS</option>
+                        <select className="form-control" onChange={this.handleTopicDropdown}> 
+                        <option>--select--</option>
+                        {
+                            this.state.topicData.map(topic => (
+                                <option>{topic.name}</option>
+                            ))
+                        }
                         </select>
                     </td>
                         <td>
                             <label>Select Complexity</label>
                             <select class="form-control" disabled={this.state.topicDropdownValue === "--Select--"} onChange={this.handleComplexityDropdown}>
                                 <option>--Select--</option>
-                                <option>Simple</option>
-                                <option>Moderate</option>
-                                <option>Complex</option>
+                                {this.state.complexData.map(complex=>
+                                  (
+                                        <option>{complex.name}</option>
+                                    )
+                                )}
 
                             </select ></td>
                         <td>
                             <label>Select Type</label>
                             <select class="form-control" id="drpType" disabled={this.state.complexityDropdownValue === "--Select--"} onChange={this.handleQuestions}>
                                 <option>--Select--</option>
-                                <option>Single</option>
-                                <option>Multiple</option>
-                                <option>Query</option>
+                            {this.state.typeData.map(type=>(
+                                <option>{type.name}</option>
+                            ))}
+                                
 
                             </select></td>
                     </tr>
                 </table>
                 <br />
-                <div id="sType" class="form-group">
+                <div id="sType" class="form-group" style={{display:this.state.typeDropdownValue === "SCQ" ||this.state.typeDropdownValue === "MCQ" ? 'block' :'none'}}>
                     <center><table id="tblQpage" text-align="center" >
                         <tr>
                             <textarea class="form-control" rows="4" cols="100" id="txArea" value={this.state.questionData} onChange={(e)=>{this.handleQuestionsData(e)}}/></tr><br /><br /></table></center>
@@ -126,7 +156,7 @@ this.setState({
                         <button type="button" value="Cancel" class="btn btn-warning" onClick={()=>{this.handleClose()}}>Cancel</button>
                     </div>
                 </div>
-                <div id="qType">
+                <div id="qType" style={{display:this.state.typeDropdownValue === "QR" ||this.state.typeDropdownValue === "sequence" ? 'block' :'none'}}>
                     <center>
                         <table id="tblQpage">
                             <tr>

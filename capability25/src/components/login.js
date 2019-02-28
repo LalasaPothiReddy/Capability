@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './login.css';
 import {Redirect} from 'react-router-dom';
 import axios from 'axios';
@@ -53,28 +52,23 @@ handleSubmit=(e)=>{
             return <Redirect to='/menu' />
           }
         return(
-              <div>
+              <div id="loginDiv">
               <form onSubmit={this.handleSubmit} id="login">
-              <table>
-                  <tbody>
-                  <tr><h2>Login</h2></tr>
-              <tr>
-                  <td>
-              <label>UserName:</label></td>
-             <td> <input type="text"  placeholder="Enter User Name" className="form-control" name="uName" id="name" onChange={(e)=>{this.handleName(e)}}/><br /></td>
-            
-             </tr>
-             <tr>
-             <td> <label>Password:</label></td>
-             <td> <input type="password"  placeholder="Enter Password" className="form-control" name="Password" id="pswd" onChange={(e)=>{this.handlePassword(e)}}/><br /></td>
-              </tr>
-              <tr>
-              <td></td><td><button type="submit" value="Login" className="btn btn-primary" >Login</button>
-              <button type="button" value="Cancel" className="btn btn-warning">Cancel</button></td>
-             </tr>
-             </tbody>
-             </table>
-              </form>
+              <div>
+                  <h2>Login</h2>
+              </div>
+                 <div>
+              <label>UserName:</label>
+              <input type="text"  placeholder="Enter User Name" className="form-control" name="uName" id="name" onChange={(e)=>{this.handleName(e)}}/><br />
+            </div>
+            <div>
+             <label>Password:</label>
+              <input type="password"  placeholder="Enter Password" className="form-control" name="Password" id="pswd" onChange={(e)=>{this.handlePassword(e)}}/><br />
+              </div>
+            <div>
+              <button type="submit" value="Login" className="btn btn-primary" >Login</button></div>
+              
+             </form>
               </div>
         )
     }
