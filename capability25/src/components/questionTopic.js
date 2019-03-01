@@ -152,7 +152,7 @@ class QuestionTopic extends Component {
           <td>{this.state.editElement === index ? <input type='text' className="form-control" onChange={(e) => { this.handleAcronym(e) }} defaultValue={item.acronym} /> : item.acronym}</td>
           <td>
             <label className="switch" id="status">
-              <input type="checkbox" checked={item.status === 1 ? true : false} disabled={this.state.editElement === index ? false : true} onChange={() => this.handleStatus(item, item.status, index)} />
+              <input type="checkbox" checked={item.status === 0 ? true : false} disabled={this.state.editElement === index ? false : true} onChange={() => this.handleStatus(item, item.status, index)} />
               <span className="slider round" />
             </label>
           </td>

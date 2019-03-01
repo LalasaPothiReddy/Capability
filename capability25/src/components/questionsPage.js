@@ -70,7 +70,7 @@ this.setState({
 })
     }
     componentWillMount() {
-        axios.get("https://api.myjson.com/bins/h1d7y")
+        axios.get("https://api.myjson.com/bins/bcrmu")
           .then(response => {
             console.log(response.data);
             const topicData = response.data;
@@ -79,7 +79,7 @@ this.setState({
               isLoaded: true
             })
           })
-          axios.get("https://api.myjson.com/bins/rr63y")
+          axios.get("https://api.myjson.com/bins/9kgti")
           .then(resData => {
             const complexData = resData.data;
             console.log(complexData);
@@ -88,7 +88,7 @@ this.setState({
               isLoaded:true
             })
           })
-          axios.get("https://api.myjson.com/bins/vi77y")
+          axios.get("https://api.myjson.com/bins/8ptfa")
           .then(res => {
             const typeData = res.data;
             this.setState({
@@ -97,6 +97,7 @@ this.setState({
             })
           })
         }
+
 
     render() {
         return (
@@ -142,7 +143,7 @@ this.setState({
                 <div id="sType" class="form-group" style={{display:this.state.typeDropdownValue === "SCQ" ||this.state.typeDropdownValue === "MCQ" ? 'block' :'none'}}>
                     <center><table id="tblQpage" text-align="center" >
                         <tr>
-                            <textarea class="form-control" rows="4" cols="100" id="txArea" value={this.state.questionData} onChange={(e)=>{this.handleQuestionsData(e)}}/></tr><br /><br /></table></center>
+                            <textarea class="form-control" rows="3" cols="100" id="txArea" value={this.state.questionData} onChange={(e)=>{this.handleQuestionsData(e)}}/></tr><br /><br /></table></center>
                     <center><table>
                         <tr><td><label>a.</label><input type="text" class="form-control" onChange={(e)=>{this.handleOption1(e)}} value={this.state.option1}/></td><br />
                             <td><label>b.</label><input type="text" class="form-control" onChange={(e)=>{this.handleOption2(e)}} value={this.state.option2} /></td>
@@ -152,8 +153,8 @@ this.setState({
                     </table></center>
                     <br />
                     <div id="divbtn">
-                        <button type="button" value="save" class="btn btn-primary" onClick={this.props.handleSave}>Save</button>
-                        <button type="button" value="Cancel" class="btn btn-warning" onClick={()=>{this.handleClose()}}>Cancel</button>
+                        <button type="button" value="save"  className="btnSave" onClick={()=>{this.handleSave()}}  disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4}>Save</button>
+                        <button type="button" value="Cancel"  className="btnCancel" onClick={()=>{this.handleClose()}} disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4}>Cancel</button>
                     </div>
                 </div>
                 <div id="qType" style={{display:this.state.typeDropdownValue === "QR" ||this.state.typeDropdownValue === "sequence" ? 'block' :'none'}}>
@@ -164,8 +165,8 @@ this.setState({
                     <center><table><tr><td><label>Upload Image:</label></td><input type="file" /></tr>
                     </table></center>
                     <div id="divbtn">
-                        <button type="button" value="save" class="btn btn-primary" onClick={()=>{this.handleSave()}}>Save</button>
-                        <button type="button" value="Cancel" class="btn btn-warning" onClick={()=>{this.handleClose()}}>Cancel</button>
+                        <button type="button" value="save" className="btnSave" onClick={()=>{this.handleSave()}} disabled={!this.state.questionData}>Save</button>
+                        <button type="button" value="Cancel" className="btnCancel" onClick={()=>{this.handleClose()}} disabled={!this.state.questionData}>Cancel</button>
                     </div>
                 </div>
             </div>

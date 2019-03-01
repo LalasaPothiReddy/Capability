@@ -125,7 +125,7 @@ class QuestionType extends Component {
     })
   }
   componentWillMount() {
-    axios.get("https://api.myjson.com/bins/vi77y")
+    axios.get("https://api.myjson.com/bins/bcrmu")
       .then(res => {
         const typeData = res.data;
         this.setState({
@@ -149,7 +149,7 @@ class QuestionType extends Component {
               <input type="text" className="form-control" onChange={e => { this.handleAcronym(e) }} defaultValue={item.acronym} /> : item.acronym}
           </td>
           <td><label class="switch" id="status">
-            <input type="checkbox" checked={item.status===1?true:false} disabled = {this.state.editElement === index?false:true} onChange={() => this.handleStatus(item, item.status, index)} /><span class="slider round">
+            <input type="checkbox" checked={item.status=== 0 ?true : false} disabled = {this.state.editElement === index?false:true} onChange={() => this.handleStatus(item, item.status, index)} /><span class="slider round">
             </span>
           </label></td>
           <td>

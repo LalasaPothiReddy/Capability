@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
-import './login.css';
 import {Redirect} from 'react-router-dom';
 import axios from 'axios';
+import './login.css';
 
 class Login extends Component{
     constructor(props){
@@ -52,24 +52,26 @@ handleSubmit=(e)=>{
             return <Redirect to='/menu' />
           }
         return(
-              <div id="loginDiv">
-              <form onSubmit={this.handleSubmit} id="login">
-              <div>
-                  <h2>Login</h2>
-              </div>
-                 <div>
-              <label>UserName:</label>
-              <input type="text"  placeholder="Enter User Name" className="form-control" name="uName" id="name" onChange={(e)=>{this.handleName(e)}}/><br />
+                        <div className="main_login">
+                <div className="main_login_box">
+                    <div className="login-heading">Login</div>
+                    <form className="login-content" onSubmit={this.handleSubmit}>
+                        <div className="form-login">
+                            <label>UserName</label>
+                            <br />
+                            <input type="text" placeholder="UserName"/>
+                        </div>
+                        <div className="form-login">
+                            <label>Password</label>
+                            <br />
+                            <input type="password" placeholder="Password" />
+                        </div>
+                        <div className="form-submit">
+                            <button type="submit" className="btn btn-primary" >Login</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div>
-             <label>Password:</label>
-              <input type="password"  placeholder="Enter Password" className="form-control" name="Password" id="pswd" onChange={(e)=>{this.handlePassword(e)}}/><br />
-              </div>
-            <div>
-              <button type="submit" value="Login" className="btn btn-primary" >Login</button></div>
-              
-             </form>
-              </div>
         )
     }
 }

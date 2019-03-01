@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
-
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import Menu from './menu';
+import './questions.css';
 
 class Questions extends Component {
 constructor(props) {
         super(props)
         this.state = {
             isLoaded:false,
-            url: '',
+            id:'',
              error:false,
             description: '',
-            questiontype: '',
-            questioncomplexity: '',
+            questiontype_name: '',
+            questioncomplexity_name: '',
             status:0,
             Record: {
-                url: '',
+                id: '',
                 description: '',
-                questiontype: '',
-                questioncomplexity: '',
+                questiontype_name: '',
+                questioncomplexity_name: '',
                 status: ''
             },
             questionsDatas: [],
@@ -29,10 +29,10 @@ constructor(props) {
     }
     handleEdit(data, id) {
         this.setState({
-            url: data.url,
+            id: data.id,
             description: data.description,
-            questiontype: data.questiontype,
-            questioncomplexity: data.questioncomplexity,
+            questiontype_name: data. questiontype_name,
+            questioncomplexity_name: data.questioncomplexity_name,
             currentElement: id
         })
     }
@@ -41,10 +41,10 @@ constructor(props) {
 alert(data.status);
         const dummyRecord = this.state.Record;
       
-        dummyRecord.url = data.url;
+        dummyRecord.id = data.id;
         dummyRecord.description = data.description;
-        dummyRecord.questiontype = data.questiontype;
-        dummyRecord.questioncomplexity = data.questioncomplexity;
+        dummyRecord. questiontype_name = data. questiontype_name;
+        dummyRecord.questioncomplexity_name = data.questioncomplexity_name;
         dummyRecord.status = data.status === 0 ? 1 : 0;
       
         const dummytopicData = this.state.questionsDatas;
@@ -53,10 +53,10 @@ alert(data.status);
             questionsDatas: dummytopicData,
             status:data.status === 0 ? 1 : 0,
             Record:{
-                url: '',
+                id: '',
                 description: '',
-                questiontype: '',
-                questioncomplexity: '',
+                questiontype_name: '',
+                questioncomplexity_name: '',
                 status: ''
             }
       
@@ -65,10 +65,16 @@ alert(data.status);
 
     handleSave(index,data) {
         var RecordDummy = this.state.Record;
-        RecordDummy.url = this.state.url;
+        RecordDummy.id = this.state.id;
         RecordDummy.description = this.state.description;
-        RecordDummy.questiontype = this.state.questiontype;
-        RecordDummy.questioncomplexity = this.state.questioncomplexity;
+        RecordDummy.questiontype_name = this.state.questiontype_name;
+        RecordDummy.questioncomplexity_name = this.state.questioncomplexity_name;
+        if( RecordDummy.description === "" ||  RecordDummy.questiontype_name === "" ||  RecordDummy.questioncomplexity_name ===""){
+            this.setState({
+              error:true
+            })
+          }
+          else{
         RecordDummy.status = data.status;
         var questionsDatasDummy = this.state.questionsDatas;
         questionsDatasDummy[index] = RecordDummy;
@@ -77,20 +83,20 @@ alert(data.status);
             Record: RecordDummy,
             questionsDatas: questionsDatasDummy,
             currentElement: -1,
-            url: '',
+            id: '',
             description: '',
-            questiontype: '',
-            questioncomplexity: '',
+            questiontype_name: '',
+            questioncomplexity_name: '',
             Record: {
-                url: '',
+                id: '',
                 description: '',
-                questiontype: '',
-                questioncomplexity: ''
+                questiontype_name: '',
+                questioncomplexity_name: ''
             }
         })
         alert(JSON.stringify(this.state.questionsDatas[index]));
     }
-
+    }
     handleQuetionName(e) {
         this.setState({
             description: e.target.value
@@ -99,17 +105,17 @@ alert(data.status);
 
     handleQuetionType(e) {
         this.setState({
-            questiontype: e.target.value
+            questiontype_name: e.target.value
         });
     }
 
     handleQuetionComplexity(e) {
         this.setState({
-            questioncomplexity: e.target.value
+            questioncomplexity_name: e.target.value
         });
     }
     componentWillMount() {
-        axios.get("https://api.myjson.com/bins/h7spa")
+        axios.get("https://api.myjson.com/bins/l03ey")
           .then(resData => {
             const questionsDatas = resData.data;
             this.setState({
@@ -118,9 +124,13 @@ alert(data.status);
             })
           })
       }
-
+      handleClick(){
+        this.setState({
+            error:false
+        })
+}
     render() {
-        var   ComplexityTypes=['Simple','Medium','Complex'];
+      
         return (
             
             <div>
@@ -130,12 +140,17 @@ alert(data.status);
                     <button type="button" id="btn" value="add question" class="btn btn-primary" ><NavLink to='/menu/questionsPage'>Add Question</NavLink></button>
                 </div>
                 <br />
-                <br />
+                <div class="alert" style={{display: this.state.error === true ? 'block':'none'}}>
+                    <span class="closebtn" onClick={()=>{this.handleClick()}}>&times;</span>
+                    <strong>Please Enter Details....</strong>
+                  </div>
+      
                 <div class="image-container" style={{ display: this.state.isLoaded === false ? 'block' : 'none' }}>
           <p class="image-holder">
             <img  src={require('./12345.gif')}  />
           </p>
         </div>
+        <br />
                 <div>
                     <table id="tblQues" class="table table-bordered table-striped text-center" style={{display: this.state.isLoaded === true ? 'inline-table' : 'none'}} >
                         <thead class="thead-light">
@@ -147,13 +162,14 @@ alert(data.status);
                         <tbody>
                             {this.state.questionsDatas.map((questionsData, index) => {
                                 return <tr>
-                                    <td>{questionsData.url.split('/')[5]}</td>
+                                    {/* <td>{questionsData.url.split('/')[5]}</td> */}
+                                    <td>{questionsData.id}</td>
                                     <td >{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionName(e) }} defaultValue={questionsData.description} /> : questionsData.description}</td>
-                                    <td>{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionType(e) }} defaultValue={questionsData.questiontype} /> : questionsData.questiontype}</td>
-                                    <td>{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionComplexity(e) }} defaultValue={ComplexityTypes[questionsData.questioncomplexity.split('/')[5]]} /> : ComplexityTypes[questionsData.questioncomplexity.split('/')[5]-1]}</td>
+                                    <td>{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionType(e) }} defaultValue={questionsData.questiontype_name} /> : questionsData.questiontype_name}</td>
+                                    <td>{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionComplexity(e) }} defaultValue={questionsData.questioncomplexity_name} /> : questionsData.questioncomplexity_name}</td>
                                     <td>
                                         <label class="switch">
-                                            <input type="checkbox" checked={questionsData.status===1?true:false} disabled = {this.state.currentElement === index?false:true} onChange={() => this.handleStatus(questionsData, questionsData.status, index)} />
+                                            <input type="checkbox" checked={questionsData.status=== 1 ? true : false} disabled = {this.state.currentElement === index?false:true} onChange={() => this.handleStatus(questionsData, questionsData.status, index)} />
                                             <span class="slider round"></span>
                                         </label>
                                     </td>

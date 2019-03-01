@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import Menu from "./menu";
+import './questionComplexity.css';
 
 class QuestionComplexity extends Component {
   constructor(props) {
@@ -127,7 +128,7 @@ class QuestionComplexity extends Component {
   }
 
   componentWillMount() {
-    axios.get("https://api.myjson.com/bins/rr63y")
+    axios.get("https://api.myjson.com/bins/9kgti")
       .then(resData => {
         const complexData = resData.data;
         this.setState({
@@ -150,7 +151,7 @@ class QuestionComplexity extends Component {
           </td>
            <td>
               <label className="switch" id="status">
-                <input type="checkbox"  checked={item.status===1?true:false} disabled = {this.state.editElement === index?false:true} onChange={() => this.handleStatus(item, item.status, index)}/>
+                <input type="checkbox"  checked={item.status=== 0 ?true : false} disabled = {this.state.editElement === index?false:true} onChange={() => this.handleStatus(item, item.status, index)}/>
                 <span className="slider round" />
               </label>
             </td>
