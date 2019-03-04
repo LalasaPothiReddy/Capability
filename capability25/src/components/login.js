@@ -52,26 +52,15 @@ handleSubmit=(e)=>{
             return <Redirect to='/menu' />
           }
         return(
-                        <div className="main_login">
-                <div className="main_login_box">
-                    <div className="login-heading">Login</div>
-                    <form className="login-content" onSubmit={this.handleSubmit}>
-                        <div className="form-login">
-                            <label>UserName</label>
-                            <br />
-                            <input type="text" placeholder="UserName"/>
-                        </div>
-                        <div className="form-login">
-                            <label>Password</label>
-                            <br />
-                            <input type="password" placeholder="Password" />
-                        </div>
-                        <div className="form-submit">
-                            <button type="submit" className="btn btn-primary" >Login</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                        <div class="login">
+	<h1>Admin Console</h1>
+    <form onSubmit={this.handleSubmit}>
+    	<input type="text" name="u" id="loginInput" placeholder="Username" required="required" />
+        <input type="password" name="p" id="loginInput"  placeholder="Password" required="required" />
+        <button type="submit" class="login-btn login-btn-primary login-btn-block login-btn-large">Login</button>
+    </form>
+</div>
+
         )
     }
 }

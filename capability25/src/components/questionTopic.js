@@ -56,29 +56,29 @@ class QuestionTopic extends Component {
     const dummyRecord = this.state.Record;
     dummyRecord.name = this.state.name;
     dummyRecord.acronym = this.state.acronym;
-    if(dummyRecord.name === "" ||  dummyRecord.acronym === ""  ){
+    if (dummyRecord.name === "" || dummyRecord.acronym === "") {
       this.setState({
-        error:true
+        error: true
       })
     }
-    else{
-    dummyRecord.status = this.state.status;
-    const dummytopicData = this.state.topicData;
-    dummytopicData[index] = dummyRecord;
-    this.setState({
-      editElement: -1,
-      topicData: dummytopicData,
-      name:'',
-      acronym:'',
-      status:'',
-      Record: {
+    else {
+      dummyRecord.status = this.state.status;
+      const dummytopicData = this.state.topicData;
+      dummytopicData[index] = dummyRecord;
+      this.setState({
+        editElement: -1,
+        topicData: dummytopicData,
         name: '',
         acronym: '',
-        status: ''
-      }
-    });
+        status: '',
+        Record: {
+          name: '',
+          acronym: '',
+          status: ''
+        }
+      });
+    }
   }
-}
   handleStatus(data, status, index) {
 
     const dummyRecord = this.state.Record;
@@ -101,15 +101,15 @@ class QuestionTopic extends Component {
     });
   }
   handleSaveData() {
-       const dummyRecord = this.state.Record;
-      dummyRecord.name = this.state.name;
-      dummyRecord.acronym = this.state.acronym;
-      if(dummyRecord.name === "" ||  dummyRecord.acronym === ""  ){
-        this.setState({
-          error:true
-        })
-      }
-      else{
+    const dummyRecord = this.state.Record;
+    dummyRecord.name = this.state.name;
+    dummyRecord.acronym = this.state.acronym;
+    if (dummyRecord.name === "" || dummyRecord.acronym === "") {
+      this.setState({
+        error: true
+      })
+    }
+    else {
       const dummytopicData = this.state.topicData;
       dummytopicData[this.state.topicData.length + 1] = dummyRecord;
       this.setState({
@@ -138,11 +138,11 @@ class QuestionTopic extends Component {
         })
       })
   }
-  handleClick(){
+  handleClick() {
     this.setState({
-      error:false
+      error: false
     })
-   
+
   }
   render() {
     const topicData = this.state.topicData.map((item, index) => {
@@ -172,17 +172,17 @@ class QuestionTopic extends Component {
 
 
     return (
-      <div>
+      <div >
         <Menu />
-
+       <div class="side-content">
         <div>
           <br />
           <button type="button" id="add-row" value="add question topic" className="btn btn-primary" onClick={this.handleChoice}>Add Question Topic</button>
         </div>
-        <div class="alert" style={{display: this.state.error === true ? 'block':'none'}}>
-                    <span class="closebtn" onClick={()=>{this.handleClick()}}>&times;</span>
-                    <strong>Please Enter Details....</strong>
-                  </div>
+        <div class="alert" style={{ display: this.state.error === true ? 'block' : 'none' }}>
+          <span class="closebtn" onClick={() => { this.handleClick() }}>&times;</span>
+          <strong>Please Enter Details....</strong>
+        </div>
 
         <br />
         <div class="image-container" style={{ display: this.state.isLoaded === false ? 'block' : 'none' }}>
@@ -191,30 +191,35 @@ class QuestionTopic extends Component {
           </p>
         </div>
 
+        <div class="card">
+          <div class="card-body">
+            <table className="table" style={{ display: this.state.isLoaded === true ? 'inline-table' : 'none' }}>
+              <thead className="thead-bg"  >
+                <th>Name</th>
+                <th>Acronym</th>
+                <th>Status</th>
+                <th>Action</th>
+              </thead>
+              <tbody>
+                <tr style={{ display: this.state.addTopic ? 'contents' : 'none' }}>
+                  <td><input type="text" className="form-control" value={this.state.name} onChange={(e) => this.handleName(e)} /></td>
+                  <td><input type="text" className="form-control" value={this.state.acronym} onChange={(e) => this.handleAcronym(e)} /></td>
+                  <td>
+                    <label className="switch" id="status">
+                      <input type="checkbox" />
+                      <span className="slider round" />
+                    </label>
+                  </td>
+                  <td><button type="button" id="qtopicbutton" className="btn btn-primary" value="edit" onClick={() => { this.handleSaveData() }}>Save</button></td>
+                </tr>
+                {topicData}
+              </tbody>
+            </table>
 
-        <table className="table table-striped" style={{ display: this.state.isLoaded === true ? 'inline-table' : 'none' }}>
-          <thead className="thead-light">
-            <th>Name</th>
-            <th>Acronym</th>
-            <th>Status</th>
-            <th>Action</th>
-          </thead>
-          <tbody>
-            <tr style={{ display: this.state.addTopic ? 'contents' : 'none' }}>
-              <td><input type="text" className="form-control" value={this.state.name} onChange={(e) => this.handleName(e)} /></td>
-              <td><input type="text" className="form-control" value={this.state.acronym} onChange={(e) => this.handleAcronym(e)} /></td>
-              <td>
-                <label className="switch" id="status">
-                  <input type="checkbox" />
-                  <span className="slider round" />
-                </label>
-              </td>
-              <td><button type="button" id="qtopicbutton" className="btn btn-primary" value="edit" onClick={() => { this.handleSaveData() }}>Save</button></td>
-            </tr>
-            {topicData}
-          </tbody>
-        </table>
+          </div>
 
+        </div>
+        </div>
       </div>
     );
   }

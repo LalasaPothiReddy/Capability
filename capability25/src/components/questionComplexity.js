@@ -170,6 +170,7 @@ class QuestionComplexity extends Component {
     return (
       <div>
         <Menu />
+        <div class="side-content">
         <div>
           <br />
           <button
@@ -192,8 +193,10 @@ class QuestionComplexity extends Component {
             <img  src={require('./12345.gif')}  />
           </p>
         </div>
-        <table className="table table-striped" style={{display: this.state.isLoaded === true ? 'inline-table' : 'none'}}>
-          <thead className="thead-light">
+        <div class="card">
+          <div class="card-body">
+        <table className="table " style={{display: this.state.isLoaded === true ? 'inline-table' : 'none'}}>
+          <thead className="thead-bg">
             <th>Name</th>
             <th>Acronym</th>
             <th>Status</th>
@@ -223,6 +226,9 @@ class QuestionComplexity extends Component {
             {complexData}
           </tbody>
         </table>
+        </div>
+        </div>
+        </div>
       </div>
     );
   }

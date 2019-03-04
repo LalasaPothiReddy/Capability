@@ -135,6 +135,7 @@ alert(data.status);
             
             <div>
                 <Menu />
+                <div class="side-content">
                 <div>
                     <br />
                     <button type="button" id="btn" value="add question" class="btn btn-primary" ><NavLink to='/menu/questionsPage'>Add Question</NavLink></button>
@@ -151,28 +152,30 @@ alert(data.status);
           </p>
         </div>
         <br />
-                <div>
-                    <table id="tblQues" class="table table-bordered table-striped text-center" style={{display: this.state.isLoaded === true ? 'inline-table' : 'none'}} >
-                        <thead class="thead-light">
+        <div class="card">
+        <div class="card-body">
+                    <table id="tblQues" class="table  text-center" style={{display: this.state.isLoaded === true ? 'inline-table' : 'none'}} >
+                        <thead className="thead-bg">
                             <tr>
                                 <th>S.No</th><th>Questions</th><th>Type</th>
                                 <th>Complexity</th><th>Status</th><th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody >
                             {this.state.questionsDatas.map((questionsData, index) => {
                                 return <tr>
                                     {/* <td>{questionsData.url.split('/')[5]}</td> */}
                                     <td>{questionsData.id}</td>
-                                    <td >{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionName(e) }} defaultValue={questionsData.description} /> : questionsData.description}</td>
+                                    <td className="table-text">{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionName(e) }} defaultValue={questionsData.description} /> : questionsData.description}</td>
                                     <td>{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionType(e) }} defaultValue={questionsData.questiontype_name} /> : questionsData.questiontype_name}</td>
                                     <td>{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionComplexity(e) }} defaultValue={questionsData.questioncomplexity_name} /> : questionsData.questioncomplexity_name}</td>
-                                    <td>
-                                        <label class="switch">
+                                     {/* <td>
+                                        <label class="switch" id="status">
                                             <input type="checkbox" checked={questionsData.status=== 1 ? true : false} disabled = {this.state.currentElement === index?false:true} onChange={() => this.handleStatus(questionsData, questionsData.status, index)} />
                                             <span class="slider round"></span>
                                         </label>
-                                    </td>
+                                    </td> */}
+                                    <td><label class="switch" id="status"><input type="checkbox" /><span class="slider round"></span></label></td>
                                     <td>
                                         <div >  {index === this.state.currentElement ? <svg onClick={() => { this.handleSave(index,questionsData) }} xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 18 18"><path d="M6.61 11.89L3.5 8.78 2.44 9.84 6.61 14l8.95-8.95L14.5 4z" /></svg> : <svg onClick={() => { this.handleEdit(questionsData, index) }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" /></svg>}</div>
                                     </td>
@@ -181,6 +184,8 @@ alert(data.status);
                         </tbody>
                     </table>
                 </div>
+                </div>
+            </div>
             </div>
         )
     }
