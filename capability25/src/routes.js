@@ -11,11 +11,13 @@ import Results from './components/results/results';
 import QuestionsPage from './components/questionspage/questionsPage';
 import Login from './components/login/login';
 
+
 const Routes = (props) => {
     return(
         <BrowserRouter>
         
         <Switch>
+            
                <Route path='/' component={Login} exact/>
                 <Route path='/menu/dashboard' component={Dashboard} />
                 <Route path='/menu/questionComplexity' component={QuestionComplexity} />

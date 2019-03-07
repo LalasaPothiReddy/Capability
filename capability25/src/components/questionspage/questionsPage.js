@@ -7,6 +7,7 @@ class QuestionsPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            file: null,
             topicData:[],
             complexData:[],
             typeData: [],
@@ -68,6 +69,11 @@ class QuestionsPage extends Component {
 this.setState({
     questionData:e.target.value
 })
+    }
+    handleChange =(e) =>{
+        this.setState({
+            file: URL.createObjectURL(e.target.files[0])
+          })
     }
     componentWillMount() {
         axios.get("https://api.myjson.com/bins/bcrmu")
@@ -143,7 +149,7 @@ this.setState({
                 <div id="sType" class="form-group" style={{display:this.state.typeDropdownValue === "SCQ" ||this.state.typeDropdownValue === "MCQ" ? 'block' :'none'}}>
                     <center><table id="tblQpage" text-align="center" >
                         <tr>
-                            <textarea class="form-control" rows="3" cols="100" id="txArea" value={this.state.questionData} onChange={(e)=>{this.handleQuestionsData(e)}}/></tr><br /><br /></table></center>
+                            <textarea className="form-control" rows="3" cols="100" id="txArea" placeholder="Enter Questions" value={this.state.questionData} onChange={(e)=>{this.handleQuestionsData(e)}}/></tr><br /><br /></table></center>
                     <center><table>
                         <tr><td><label>a.</label><input type="text" class="form-control" onChange={(e)=>{this.handleOption1(e)}} value={this.state.option1}/></td><br />
                             <td><label>b.</label><input type="text" class="form-control" onChange={(e)=>{this.handleOption2(e)}} value={this.state.option2} /></td>
@@ -161,9 +167,14 @@ this.setState({
                     <center>
                         <table id="tblQpage">
                             <tr>
-                                <textarea class="form-control" rows="10" cols="100" id="txArea"  /></tr><br /><br /></table></center>
-                    <center><table><tr><td><label>Upload Image:</label></td><input type="file" /></tr>
+                                <textarea class="form-control" rows="3" cols="100" id="txArea"  placeholder="Enter Questions"/></tr><br /><br /></table></center>
+                    <center><table><tr><td><label>Upload Image:</label></td><div>
+        <input type="file" onChange={this.handleChange} />
+        <img src={this.state.file} className="uploadImg"  />
+      </div></tr>
                     </table></center>
+                    <br />
+                    <br />
                     <div id="divbtn">
                         <button type="button" value="save" className="btnSave" onClick={()=>{this.handleSave()}} disabled={!this.state.questionData}>Save</button>
                         <button type="button" value="Cancel" className="btnCancel" onClick={()=>{this.handleClose()}} disabled={!this.state.questionData}>Cancel</button>

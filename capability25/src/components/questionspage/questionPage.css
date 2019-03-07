@@ -7,6 +7,13 @@
         /* padding:50px 0px 0px 0px; */
         /* float:center; */
     }
+    ::placeholder{
+        color:#ccc;
+    }
+    img.uploadImg{
+        width:300px;
+        height:200px;
+    }
     #sType{
         display:none;
     }
