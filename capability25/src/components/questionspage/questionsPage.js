@@ -159,8 +159,8 @@ this.setState({
                     </table></center>
                     <br />
                     <div id="divbtn">
-                        <button type="button" value="save"  className="btnSave" onClick={()=>{this.handleSave()}}  disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4}>Save</button>
-                        <button type="button" value="Cancel"  className="btnCancel" onClick={()=>{this.handleClose()}} disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4}>Cancel</button>
+                        <button type="button" value="save"  className="btn btn-primary" onClick={()=>{this.handleSave()}}  disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4}>Save</button>
+                        <button type="button" value="Cancel"  className="btn btn-warning" onClick={()=>{this.handleClose()}} disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4}>Cancel</button>
                     </div>
                 </div>
                 <div id="qType" style={{display:this.state.typeDropdownValue === "QR" ||this.state.typeDropdownValue === "sequence" ? 'block' :'none'}}>
@@ -176,8 +176,8 @@ this.setState({
                     <br />
                     <br />
                     <div id="divbtn">
-                        <button type="button" value="save" className="btnSave" onClick={()=>{this.handleSave()}} disabled={!this.state.questionData}>Save</button>
-                        <button type="button" value="Cancel" className="btnCancel" onClick={()=>{this.handleClose()}} disabled={!this.state.questionData}>Cancel</button>
+                        <button type="button" value="save" className="btn btn-primary" onClick={()=>{this.handleSave()}} disabled={!this.state.questionData}>Save</button>
+                        <button type="button" value="Cancel" className="btn btn-warning" onClick={()=>{this.handleClose()}} disabled={!this.state.questionData}>Cancel</button>
                     </div>
                 </div>
             </div>
