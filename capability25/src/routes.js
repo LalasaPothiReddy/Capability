@@ -1,18 +1,20 @@
 import React from 'react';
 
 import {BrowserRouter,Route,Switch} from 'react-router-dom';
-import QuestionTopic from './components/questionTopic';
-import Dashboard from './components/dashboard';
-import QuestionComplexity from './components/questionComplexity';
-import QuestionType from './components/questionType';
-import Questions from './components/questions';
-import Answers from './components/answers';
-import Results from './components/results';
-import QuestionsPage from './components/questionsPage';
-import Login from './components/login';
+import QuestionTopic from './components/questions_topic/questionTopic';
+import Dashboard from './components/dashboard/dashboard';
+import QuestionComplexity from './components/questions_complexity/questionComplexity';
+import QuestionType from './components/questions_type/questionType';
+import Questions from './components/questions/questions';
+import Answers from './components/answers/answers';
+import Results from './components/results/results';
+import QuestionsPage from './components/questionspage/questionsPage';
+import Login from './components/login/login';
+
 const Routes = (props) => {
     return(
         <BrowserRouter>
+        
         <Switch>
                <Route path='/' component={Login} exact/>
                 <Route path='/menu/dashboard' component={Dashboard} />

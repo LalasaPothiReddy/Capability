@@ -1,0 +1,34 @@
+#tblPage{
+    border-collapse: separate;
+    border-spacing: 150px 0;
+    }
+    #tblQpage > #txArea{
+       
+        /* padding:50px 0px 0px 0px; */
+        /* float:center; */
+    }
+    #sType{
+        display:none;
+    }
+    #qType{
+        display:none;
+    }
+
+#divbtn{
+    float: right;
+    margin-right: 180px;
+    
+}
+.btnSave,.btnCancel{
+    background-color:#fff !important;
+}
+.btnSave:hover{
+    background-color:rgb(4, 175, 255) !important;
+}
+.btnCancel:hover{
+    background-color: rgba(245, 52, 52, 0.733) !important;
+}
+#divbtn button{
+margin-right:16px;
+width:100px;
+}
