@@ -25,13 +25,29 @@
     #qType{
         display:none;
     }
-
-#divbtn{
+    h3{
+        color:rgb(34, 175, 34);
+        padding-left:0px;
+    }
+    textarea{
+        margin-left: 100px;
+    }
+    .ans{
+        color:rgb(18, 131, 206);
+    }
+/* div#divbtn{
     float: right;
     margin-right: 180px;
 }
 
-#divbtn button{
+div#divbtn button{
 margin-right:16px;
 width:100px;
+} */
+#divbtn button{
+    margin-right:16px;
+    width:100px;
+}
+.ansTbl{
+    margin-left:100px;
 }

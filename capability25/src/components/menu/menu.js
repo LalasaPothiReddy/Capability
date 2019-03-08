@@ -20,28 +20,28 @@ class Menu extends Component {
                         <nav id="nav-menu-container">
                             <ul class="nav-menu">
                             <li><img src={require('.././arohaLogo.png')} /></li>
-                                <li ><NavLink to='/menu/dashboard' class="menu-active">Dasboard</NavLink></li>
-                                <li><NavLink to='/menu/questions' class='dropdown-toggle'>Questions</NavLink>
+                                <li ><NavLink to='/menu/dashboard' className="menu-active">Dasboard</NavLink></li>
+                                <li><NavLink to='/menu/questions' className='dropdown-toggle'>Questions</NavLink>
                                     <ul class="dropdown-menu">
-                                        <li ><NavLink to='/menu/questionTopic' class="navlink" >Topic</NavLink></li>
-                                        <li ><NavLink to='/menu/questionType' class="navlink" >Type</NavLink></li>
+                                        <li ><NavLink to='/menu/questionTopic' className="navlink" >Topic</NavLink></li>
+                                        <li ><NavLink to='/menu/questionType' className="navlink" >Type</NavLink></li>
                                        
-                                        <li ><NavLink to='/menu/questionComplexity' class="navlink" >Complexity</NavLink></li>
-                                        <li ><NavLink to='/menu/questions' class="navlink" >Questions</NavLink></li>
+                                        <li ><NavLink to='/menu/questionComplexity' className="navlink" >Complexity</NavLink></li>
+                                        <li ><NavLink to='/menu/questions' className="navlink" >Questions</NavLink></li>
 
                                     </ul>
 
                                 </li>
 
-                                <li><NavLink to='/menu/answers' class='dropdown-toggle'>Answers</NavLink>
+                                <li><NavLink to='/menu/answers' className='dropdown-toggle'>Answers</NavLink>
                                     <ul class="dropdown-menu">
-                                        <li><NavLink to='/menu/answers' class="navlink">Answers</NavLink></li>
+                                        <li><NavLink to='/menu/answers' className="navlink">Answers</NavLink></li>
                                     </ul>
                                 </li>
-                                <li><NavLink to='/menu/results' class='dropdown-toggle'>Results</NavLink>
+                                <li><NavLink to='/menu/results' className='dropdown-toggle'>Results</NavLink>
 
                                     <ul class="dropdown-menu">
-                                        <li><NavLink to='/menu/results' class="navlink">Results</NavLink></li>
+                                        <li><NavLink to='/menu/results' className="navlink">Results</NavLink></li>
                                     </ul></li>
 
                             </ul>
