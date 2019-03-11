@@ -125,7 +125,7 @@ class QuestionType extends Component {
     })
   }
   componentWillMount() {
-    axios.get("https://api.myjson.com/bins/bcrmu")
+    axios.get("https://api.myjson.com/bins/8ptfa")
       .then(res => {
         const typeData = res.data;
         this.setState({

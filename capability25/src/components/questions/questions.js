@@ -116,24 +116,7 @@ constructor(props) {
         });
     }
     componentWillMount() {
-    //     axios.get("https://api.myjson.com/bins/l03ey")
-    //       .then(resData => {
-    //         const questionsDatas = resData.data;
-    //         this.setState({
-    //             questionsDatas: questionsDatas,
-    //           isLoaded:true
-    //         })
-    //       })
-    //     .get("https://api.myjson.com/bins/9kgti")
-    //   .then(resData => {
-    //     const complexDropdownData = resData.data;
-    //     this.setState({
-    //         complexDropdownData: complexDropdownData,
-    //     })
-    //   })
-    //   alert(this.state.complexDropdownData);
-
-    axios.all([
+        axios.all([
         axios.get('https://api.myjson.com/bins/l03ey'),
         axios.get('https://api.myjson.com/bins/9kgti')
       ])

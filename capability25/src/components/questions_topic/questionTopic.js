@@ -35,7 +35,7 @@ class QuestionTopic extends Component {
     })
     console.log(this.state.acronym);
   }
-  handleChoice = () => {
+  handleTopic = () => {
 
     if (this.state.addTopic === false) {
       this.setState({
@@ -128,7 +128,7 @@ class QuestionTopic extends Component {
     }
   }
   componentWillMount() {
-    axios.get("https://api.myjson.com/bins/h1d7y")
+    axios.get("https://api.myjson.com/bins/bcrmu")
       .then(response => {
         console.log(response.data);
         const topicData = response.data;
@@ -145,11 +145,12 @@ class QuestionTopic extends Component {
 
   }
   render() {
-    const topicData = this.state.topicData.map((item, index) => {
+    const {topicData,editElement}=this.state;
+    const tblTopicData = topicData.map((item, index) => {
       return (
         <tr>
-          <td>{this.state.editElement === index ? <input type='text' className="form-control" onChange={(e) => { this.handleName(e) }} defaultValue={item.name} /> : item.name}</td>
-          <td>{this.state.editElement === index ? <input type='text' className="form-control" onChange={(e) => { this.handleAcronym(e) }} defaultValue={item.acronym} /> : item.acronym}</td>
+          <td>{editElement === index ? <input type='text' className="form-control" onChange={(e) => { this.handleName(e) }} defaultValue={item.name} /> : item.name}</td>
+          <td>{editElement === index ? <input type='text' className="form-control" onChange={(e) => { this.handleAcronym(e) }} defaultValue={item.acronym} /> : item.acronym}</td>
           <td>
             <label className="switch" id="status">
               <input type="checkbox" checked={item.status === 0 ? true : false} disabled={this.state.editElement === index ? false : true} onChange={() => this.handleStatus(item, item.status, index)} />
@@ -158,7 +159,7 @@ class QuestionTopic extends Component {
           </td>
           <td>
             <div>
-              {this.state.editElement === index ? <svg onClick={() => { this.handleSave(index) }} xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 18 18"><path d="M6.61 11.89L3.5 8.78 2.44 9.84 6.61 14l8.95-8.95L14.5 4z" /></svg> :
+              {editElement === index ? <svg onClick={() => { this.handleSave(index) }} xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 18 18"><path d="M6.61 11.89L3.5 8.78 2.44 9.84 6.61 14l8.95-8.95L14.5 4z" /></svg> :
                 <svg onClick={(e) => { this.handleEdit(item, index) }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" /></svg>
               }
 
@@ -177,7 +178,7 @@ class QuestionTopic extends Component {
        <div class="side-content">
         <div>
           <br />
-          <button type="button" id="add-row" value="add question topic" className="btn btn-primary" onClick={this.handleChoice}>Add Question Topic</button>
+          <button type="button" id="add-row" value="add question topic" className="btn btn-primary" onClick={this.handleTopic}>Add Question Topic</button>
         </div>
         <div className="alert" style={{ display: this.state.error === true ? 'block' : 'none' }}>
           <span className="closebtn" onClick={() => { this.handleClick() }}>&times;</span>
@@ -212,7 +213,7 @@ class QuestionTopic extends Component {
                   </td>
                   <td><button type="button" id="qtopicbutton" className="btn btn-primary" value="edit" onClick={() => { this.handleSaveData() }}>Save</button></td>
                 </tr>
-                {topicData}
+                {tblTopicData}
               </tbody>
             </table>
 

@@ -2,13 +2,15 @@
     border-collapse: separate;
     border-spacing: 150px 0;
     }
-    #tblQpage > #txArea{
-       
-        /* padding:50px 0px 0px 0px; */
-        /* float:center; */
+    
+     .ans{
+        margin-left:25px;
+    } 
+    .ans1{
+        margin-top:14px;
     }
-    ::placeholder{
-        color:#ccc;
+    .ans2{
+        margin-top:20px;
     }
     button:disabled{
         background-color: #ccc5c5;
@@ -25,17 +27,12 @@
     #qType{
         display:none;
     }
-    h3{
-        color:rgb(34, 175, 34);
-        padding-left:0px;
-    }
+    
     textarea{
         margin-left: 100px;
     }
-    .ans{
-        color:rgb(18, 131, 206);
-    }
-/* div#divbtn{
+    
+div#divbtn{
     float: right;
     margin-right: 180px;
 }
@@ -43,11 +40,23 @@
 div#divbtn button{
 margin-right:16px;
 width:100px;
-} */
-#divbtn button{
-    margin-right:16px;
-    width:100px;
-}
-.ansTbl{
+} 
+.optionTbl{
     margin-left:100px;
+}
+td.options{
+    display: flex;
+    width:700px;
+    text-overflow: ellipsis;
+}
+.optLbl{
+    margin-top:5px;
+}
+tr>input[type=radio] {
+    border: 0px;
+    width: 100%;
+    height: 2em;
+} 
+.align{
+    display:flex;
 }

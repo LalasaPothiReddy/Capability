@@ -13,16 +13,16 @@ class Menu extends Component {
 
 
                 <header id="header">
-                    <div class="container">
+                    <div className="container">
 
 
 
                         <nav id="nav-menu-container">
-                            <ul class="nav-menu">
+                            <ul className="nav-menu">
                             <li><img src={require('.././arohaLogo.png')} /></li>
                                 <li ><NavLink to='/menu/dashboard' className="menu-active">Dasboard</NavLink></li>
                                 <li><NavLink to='/menu/questions' className='dropdown-toggle'>Questions</NavLink>
-                                    <ul class="dropdown-menu">
+                                    <ul className="dropdown-menu">
                                         <li ><NavLink to='/menu/questionTopic' className="navlink" >Topic</NavLink></li>
                                         <li ><NavLink to='/menu/questionType' className="navlink" >Type</NavLink></li>
                                        
@@ -34,13 +34,13 @@ class Menu extends Component {
                                 </li>
 
                                 <li><NavLink to='/menu/answers' className='dropdown-toggle'>Answers</NavLink>
-                                    <ul class="dropdown-menu">
+                                    <ul className="dropdown-menu">
                                         <li><NavLink to='/menu/answers' className="navlink">Answers</NavLink></li>
                                     </ul>
                                 </li>
                                 <li><NavLink to='/menu/results' className='dropdown-toggle'>Results</NavLink>
 
-                                    <ul class="dropdown-menu">
+                                    <ul className="dropdown-menu">
                                         <li><NavLink to='/menu/results' className="navlink">Results</NavLink></li>
                                     </ul></li>
 
