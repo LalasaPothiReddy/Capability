@@ -29,7 +29,8 @@ class QuestionsPage extends Component {
                 option3:'',
                 option4:'',
                 questionData:'',
-                mName:''
+                mName:'',
+                questionsqueryData:''
             },
         }
     }
@@ -62,7 +63,10 @@ class QuestionsPage extends Component {
                 option3:'',
                 option4:'',
                 questionData:'',
-                mName:''
+                mName:'',
+                questionsqueryData:'',
+                topicDropdownValue:'',
+                complexityDropdownValue:'',
            
         })      
        
@@ -84,7 +88,7 @@ this.setState({
     questionData:e.target.value
 })
     }
-    handleQuestionsqyeryData(e){
+    handleQuestionsqueryData(e){
         this.setState({
             questionsqueryData:e.target.value
         })
@@ -107,8 +111,7 @@ this.setState({
             })
     }
     handleSave(){
-       
-       const dummyRecordData=this.state.RecordData;
+        const dummyRecordData=this.state.RecordData;
        dummyRecordData.sName=this.state.sName;
        dummyRecordData.option1=this.state.option1;
        dummyRecordData.option2=this.state.option2;
@@ -116,6 +119,10 @@ this.setState({
        dummyRecordData.option4=this.state.option4;
        dummyRecordData.questionData=this.state.questionData;
        dummyRecordData.mName=this.state.mName;
+       dummyRecordData.questionsqueryData=this.state.questionsqueryData;
+       dummyRecordData.topicDropdownValue=this.state.topicDropdownValue;
+       dummyRecordData.complexityDropdownValue=this.state.complexityDropdownValue;
+       dummyRecordData.typeDropdownValue=this.state.typeDropdownValue;
        this.setState({
            RecordData:dummyRecordData,
         sName:'',
@@ -124,8 +131,11 @@ this.setState({
         option3:'',
         option4:'',
         questionData:'',
-        mName:''
-        
+        mName:'',
+        questionsqueryData:'',
+        topicDropdownValue:'',
+        complexityDropdownValue:'',
+        typeDropdownValue:''
        })
        alert("data saved successfully" +JSON.stringify(this.state.RecordData));
     }
@@ -235,16 +245,16 @@ render() {
                     
                         <table id="tblQpage" text-align="center">
                             <tr>
-                                <textarea className="form-control" rows="3" cols="100" id="txArea"  placeholder="Enter Questions" onChange={(e)=>{this.handleQuestionsqyeryData(e)}}/></tr><br /><br /></table>
-                   <table><tr><td><label>Upload Image:</label></td><div>
-        <input type="file" onChange={this.handleChange} />
+                                <textarea className="form-control" rows="3" cols="100" id="txArea"  placeholder="Enter Questions" onChange={(e)=>{this.handleQuestionsqueryData(e)}}/></tr></table><br />
+                   <table ><tr><td><label className="qtbl">Upload Image:</label></td><div>
+        <input type="file" onChange={this.handleChange} className="tblupload"/>
         <img src={this.state.file} className="uploadImg"  />
       </div></tr>
                     </table>
                     <br />
                     
                     <div id="divbtn">
-                        <button type="button" value="save" className="btn btn-success" onClick={()=>{this.handleSave()}} disabled={!this.state.questionsqueryData}>Save</button>
+                        <button type="button" value="save" className="btn btn-success" onClick={()=>{this.handleSave()}} disabled={!this.state.questionsqueryData }>Save</button>
                         <button type="button" value="Cancel" className="btn btn-danger" onClick={()=>{this.handleClose()}} disabled={!this.state.questionsqueryData}>Cancel</button>
                     </div>
                 </div>

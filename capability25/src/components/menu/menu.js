@@ -23,11 +23,11 @@ class Menu extends Component {
                                 <li ><NavLink to='/menu/dashboard' className="menu-active">Dasboard</NavLink></li>
                                 <li><NavLink to='/menu/questions' className='dropdown-toggle'>Questions</NavLink>
                                     <ul className="dropdown-menu">
-                                        <li ><NavLink to='/menu/questionTopic' className="navlink" >Topic</NavLink></li>
-                                        <li ><NavLink to='/menu/questionType' className="navlink" >Type</NavLink></li>
+                                        <li ><NavLink to='/menu/questionTopic' className="navlink" >Master Topic</NavLink></li>
+                                        <li ><NavLink to='/menu/questionType' className="navlink" >Master Type</NavLink></li>
                                        
-                                        <li ><NavLink to='/menu/questionComplexity' className="navlink" >Complexity</NavLink></li>
-                                        <li ><NavLink to='/menu/questions' className="navlink" >Questions</NavLink></li>
+                                        <li ><NavLink to='/menu/questionComplexity' className="navlink" >Master Complexity</NavLink></li>
+                                        <li ><NavLink to='/menu/questions' className="navlink" >Master Questions</NavLink></li>
 
                                     </ul>
 
