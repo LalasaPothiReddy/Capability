@@ -19,7 +19,7 @@ class Menu extends Component {
 
                         <nav id="nav-menu-container">
                             <ul className="nav-menu">
-                            <li><img src={require('.././arohaLogo.png')} /></li>
+                            <li><img src={require('.././arohaLogo.png')} alt=""/></li>
                                 <li ><NavLink to='/menu/dashboard' className="menu-active">Dasboard</NavLink></li>
                                 <li><NavLink to='/menu/questions' className='dropdown-toggle'>Questions</NavLink>
                                     <ul className="dropdown-menu">

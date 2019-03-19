@@ -52,11 +52,11 @@ handleSubmit=(e)=>{
             return <Redirect to='/menu' />
           }
         return(
-                        <div class="login">
+                        <div className="login">
 	<h1>Admin Console</h1>
     <form onSubmit={this.handleSubmit}>
     	<input type="text" name="u" id="loginInput" placeholder="Username" required="required" />
-        <input type="password" name="p" id="loginInput"  placeholder="Password" required="required" />
+        <input type="password" name="p" id="loginInput1"  placeholder="Password" required="required" />
         <button type="submit" className="login-btn login-btn-primary login-btn-block login-btn-large">Login</button>
     </form>
 </div>

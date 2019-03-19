@@ -87,6 +87,7 @@ class QuestionType extends Component {
     const dummyRecordsData = this.state.RecordsData;
     dummyRecordsData.name = this.state.name;
     dummyRecordsData.acronym = this.state.acronym;
+    dummyRecordsData.status=this.state.status;
     if(dummyRecordsData.name === "" ||  dummyRecordsData.acronym === ""  ){
       this.setState({
         error:true
@@ -140,7 +141,7 @@ class QuestionType extends Component {
 
       return (
 
-        <tr style={{ visibility: this.state.typeData.status === false ? 'hidden' : 'visible' }}>
+        <tr key={index} style={{ visibility: this.state.typeData.status === false ? 'hidden' : 'visible' }}>
           <td>
             {this.state.editElement === index ? <input type="text" className="form-control" onChange={(e) => { this.handleName(e) }} defaultValue={item.name} /> : item.name}</td>
 
@@ -148,8 +149,8 @@ class QuestionType extends Component {
             {this.state.editElement === index ?
               <input type="text" className="form-control" onChange={e => { this.handleAcronym(e) }} defaultValue={item.acronym} /> : item.acronym}
           </td>
-          <td><label class="switch" id="status">
-            <input type="checkbox" checked={item.status=== 0 ?true : false} disabled = {this.state.editElement === index?false:true} onChange={() => this.handleStatus(item, item.status, index)} /><span class="slider round">
+          <td><label className="switch" id="status">
+            <input type="checkbox" checked={item.status=== 0 ?true : false} disabled = {this.state.editElement === index?false:true} onChange={() => this.handleStatus(item, item.status, index)} /><span className="slider round">
             </span>
           </label></td>
           <td>
@@ -166,7 +167,7 @@ class QuestionType extends Component {
     return (
       <div>
         <Menu />
-        <div class="side-content">
+        <div className="side-content">
         <div>
           <br />
           <button
@@ -179,25 +180,27 @@ class QuestionType extends Component {
             Add Question Type
           </button>
         </div>
-        <div class="alert" style={{display: this.state.error === true ? 'block':'none'}}>
-                    <span class="closebtn" onClick={()=>{this.handleClick()}}>&times;</span>
+        <div className="alert" style={{display: this.state.error === true ? 'block':'none'}}>
+                    <span className="closebtn" onClick={()=>{this.handleClick()}}>&times;</span>
                     <strong>Please Enter Details....</strong>
                   </div>
-        <div class="image-container" style={{ display: this.state.isLoaded === false ? 'block' : 'none' }}>
-          <p class="image-holder">
-            <img  src={require('.././12345.gif')}  />
+        <div className="image-container" style={{ display: this.state.isLoaded === false ? 'block' : 'none' }}>
+          <p className="image-holder">
+            <img  src={require('.././12345.gif')} alt="" />
           </p>
         </div>
         
         <br />
-     <div class="card">
-        <div class="card-body">
+     <div className="card">
+        <div className="card-body">
         <table className="table" style={{display: this.state.isLoaded === true ? 'inline-table' : 'none'}}>
           <thead className="thead-bg">
+            <tr>
             <th>Name</th>
             <th>Acronym</th>
             <th>Status</th>
             <th>Action</th>
+            </tr>
           </thead>
           <tbody>
             <tr style={{ display: this.state.addType === true ? "contents" : "none" }}>
@@ -207,7 +210,7 @@ class QuestionType extends Component {
               <td>
                 <input type="text" id="acronym" className="form-control" value={this.state.acronym} onChange={(e) => { this.handleAcronym(e) }} />
               </td>
-              <td><label class="switch" id="status"><input type="checkbox" /><span class="slider round"></span></label></td>
+              <td><label className="switch" id="status"><input type="checkbox" /><span className="slider round"></span></label></td>
               <td>
                 <button
                   type="button"

@@ -143,52 +143,56 @@ constructor(props) {
             
             <div>
                 <Menu />
-                <div class="side-content">  {/* padding left and right */}
+                <div className="side-content">  {/* padding left and right */}
                 <div>
                     <br />
-                    <button type="button" id="btn" value="add question" class="btn btn-primary" ><NavLink to='/menu/questionsPage'>Add Question</NavLink></button>
+                    <button type="button" id="btn" value="add question" className="btn btn-primary" ><NavLink to='/menu/questionsPage'>Add Question</NavLink></button>
                 </div>
                 <br />
-                <div class="alert" style={{display: this.state.error === true ? 'block':'none'}}>
-                    <span class="closebtn" onClick={()=>{this.handleClick()}}>&times;</span>
+                <div className="alert" style={{display: this.state.error === true ? 'block':'none'}}>
+                    <span className="closebtn" onClick={()=>{this.handleClick()}}>&times;</span>
                     <strong>Please Enter Details....</strong>
                   </div>
       
-                <div class="image-container" style={{ display: this.state.isLoaded === false ? 'block' : 'none' }}>
-          <p class="image-holder">
-            <img  src={require('.././12345.gif')}  />
+                <div className="image-container" style={{ display: this.state.isLoaded === false ? 'block' : 'none' }}>
+          <p className="image-holder">
+            <img  src={require('.././12345.gif')}  alt=""/>
           </p>
         </div>
         <br />
-        <div class="card">  {/*  Bootstrap cards  */}
-        <div class="card-body">
-                    <table id="tblQues" class="table" style={{display: this.state.isLoaded === true ? 'inline-table' : 'none'}} >
-                        <thead className="thead-bg"> {/* className="thead-bg" : backgroung color for thead */}
+        <div className="card">  {/*  Bootstrap cards  */}
+        <div className="card-body">
+                    <table id="tblQues" className="table" style={{display: this.state.isLoaded === true ? 'inline-table' : 'none'}} >
+                        <thead className="thead-bg">
                             <tr>
                                 <th>S.No</th><th>Questions</th><th>Type</th>
                                 <th>Complexity</th><th>Status</th><th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.questionsDatas.map((questionsData, index) => {
-                                return <tr>
+                            {this.state.questionsDatas.map((questionsData,index) => {
+                                return <tr key={index}>
                                     {/* <td>{questionsData.url.split('/')[5]}</td> */}
                                     <td>{questionsData.id}</td>
                                     <td >{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionName(e) }} defaultValue={questionsData.description} /> : questionsData.description}</td>
                                     <td>{questionsData.questiontype_name}</td>
 
-<td>
-    <select class="form-control" disabled={!(index === this.state.currentElement)}>
+     <td>
+    <select className="form-control" disabled={!(index === this.state.currentElement)}>
     {this.state.complexDropdownData.map((drpData,index)=>{
-return <option selected={drpData.name=== questionsData.questioncomplexity_name ? true : false}>{ drpData.name}</option>
-})}</select>
-</td>
+       if(drpData.name === questionsData.questioncomplexity_name){
+               return(
+                <option key={index} value={drpData.name === questionsData.questioncomplexity_name ? true : false}>{ drpData.name}</option>
+               )
+            }
+       })}</select>
+    </td>
 
                                     {/* <td>{index === this.state.currentElement ? <input type='text' class="form-control" onChange={(e) => { this.handleQuetionComplexity(e) }} defaultValue={questionsData.questioncomplexity_name} /> : questionsData.questioncomplexity_name}</td> */}
                                     <td>
-                                        <label class="switch" id="status">
+                                        <label className="switch" id="status">
                                             <input type="checkbox" checked={questionsData.status=== 1 ? true : false} disabled = {this.state.currentElement === index?false:true} onChange={() => this.handleStatus(questionsData, questionsData.status, index)} />
-                                            <span class="slider round"></span>
+                                            <span className="slider round"></span>
                                         </label>
                                     </td> 
                                     {/* <td><label class="switch" id="status"><input type="checkbox" /><span class="slider round"></span></label></td> */}

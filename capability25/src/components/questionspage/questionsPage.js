@@ -164,15 +164,16 @@ render() {
         return (
             <div>
                 <Menu />
-                <br />
-<table id="tblPage">
+                
+<table id="tblPage" > 
+<tbody>
                     <tr><td>
                         <label>Select Topic</label>
                         <select className="form-control" onChange={this.handleTopicDropdown}> 
                         <option>--select--</option>
                         {
                             this.state.topicData.map(topic => (
-                                <option>{topic.name}</option>
+                                <option key={topic.name}>{topic.name}</option>
                             ))
                         }
                         </select>
@@ -183,7 +184,7 @@ render() {
                                 <option>--Select--</option>
                                 {this.state.complexData.map(complex=>
                                   (
-                                        <option>{complex.name}</option>
+                                        <option key={complex.name}>{complex.name}</option>
                                     )
                                 )}
 
@@ -193,67 +194,83 @@ render() {
                             <select className="form-control" id="drpType" disabled={this.state.complexityDropdownValue === "--Select--"} onChange={this.handleQuestions}>
                                 <option>--Select--</option>
                             {this.state.typeData.map(type=>(
-                                <option>{type.name}</option>
+                                <option key={type.name}>{type.name}</option>
                             ))}
                                 
 
                             </select></td>
                     </tr>
+                    </tbody>
                 </table>
-                <br />
+             
                 <div id="sType" className="form-group" style={{display:this.state.typeDropdownValue === "SCQ" ||this.state.typeDropdownValue === "MCQ" ? 'block' :'none'}}>
                    <table id="tblQpage" text-align="center" >
-                        <tr>
-                            <textarea className="form-control" rows="3" cols="100"  placeholder="Enter Questions" value={this.state.questionData} onChange={(e)=>{this.handleQuestionsData(e)}}/></tr><br /></table>
+                        <tbody>
+                        <tr><td>
+                            <textarea className="form-control" rows="3" cols="100"  placeholder="Enter Questions" value={this.state.questionData} onChange={(e)=>{this.handleQuestionsData(e)}}/></td></tr>
+                   </tbody></table>
                       <div className="align">
                         <table className="optionTbl" text-align="center">
-                        <tr ><td className="options"><label className="optLbl">a.</label><input type="text" class="form-control" onChange={(e)=>{this.handleOption1(e)}} value={this.state.option1}/></td></tr>
-                          <tr>  <td className="options"><label className="optLbl">b.</label><input type="text" class="form-control" onChange={(e)=>{this.handleOption2(e)}} value={this.state.option2} /></td>
+                        <tbody>
+                        <tr><td className="options"><label className="optLbl">a.</label><input type="text" className="form-control" onChange={(e)=>{this.handleOption1(e)}} value={this.state.option1}/></td></tr>
+                          <tr><td className="options"><label className="optLbl">b.</label><input type="text" className="form-control" onChange={(e)=>{this.handleOption2(e)}} value={this.state.option2} /></td>
                         </tr>
-                        <tr ><td className="options"><label className="optLbl">c.</label><input type="text" class="form-control" onChange={(e)=>{this.handleOption3(e)}} value={this.state.option3} /></td></tr>
-                            <tr><td className="options"><label className="optLbl">d.</label><input type="text" class="form-control" onChange={(e)=>{this.handleOption4(e)}} value={this.state.option4} /></td></tr></table>
+                        <tr><td className="options"><label className="optLbl">c.</label><input type="text" className="form-control" onChange={(e)=>{this.handleOption3(e)}} value={this.state.option3} /></td></tr>
+                            <tr><td className="options"><label className="optLbl">d.</label><input type="text" className="form-control" onChange={(e)=>{this.handleOption4(e)}} value={this.state.option4} /></td></tr>
+                    </tbody></table>
                         
                          <table className="ans" style={{display:this.state.typeDropdownValue === "SCQ" ?'block':'none'}}>
-                        <tr><td ><input type="radio" className="ans1" name="sName" onChange={(e)=>{this.handleAnswer(e)}} /></td></tr>
-                       <tr> <td><input type="radio"   className="ans1" onChange={(e)=>{this.handleAnswer(e)}} name="sName" /></td></tr>
+                         <tbody>
+                        <tr><td><input type="radio" className="ans1" name="sName" onChange={(e)=>{this.handleAnswer(e)}} /></td></tr>
+                       <tr><td><input type="radio"   className="ans1" onChange={(e)=>{this.handleAnswer(e)}} name="sName" /></td></tr>
                         <tr><td><input type="radio"   className="ans1" name="sName" onChange={(e)=>{this.handleAnswer(e)}}/></td></tr>
                         <tr><td><input type="radio" className="ans2" name="sName" onChange={(e)=>{this.handleAnswer(e)}} />
                          </td></tr>
+                         <tr><td>
                          <div id="divbtn" style={{display:this.state.typeDropdownValue === "SCQ" ?'block':'none'}}>
                         <button type="button" value="save"  className="btn btn-success" onClick={()=>{this.handleSave()}}  disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4 || !this.state.sName }>Save</button>
                         <button type="button" value="Cancel"  className="btn btn-danger" onClick={()=>{this.handleClose()}} disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4  || !this.state.sName }>Cancel</button>
                     </div>
+                    </td></tr>
+                    </tbody>
                     </table> 
                     <table className="ans" style={{display:this.state.typeDropdownValue === "MCQ" ?'block':'none'}}>
+                    <tbody>
                         <tr><td ><input type="checkbox" className="ans1" name="mName" onChange={(e)=>{this.handleCAnswer(e)}} /></td></tr>
-                       <tr> <td><input type="checkbox"   className="ans1" onChange={(e)=>{this.handleCAnswer(e)}} name="mName" /></td></tr>
+                       <tr><td><input type="checkbox"   className="ans1" onChange={(e)=>{this.handleCAnswer(e)}} name="mName" /></td></tr>
                         <tr><td><input type="checkbox"   className="ans1" name="mName" onChange={(e)=>{this.handleCAnswer(e)}}/></td></tr>
                         <tr><td><input type="checkbox" className="ans2" name="mName" onChange={(e)=>{this.handleCAnswer(e)}} />
                          </td></tr>
-                        
-                    
-                    <div id="divbtn" style={{display:this.state.typeDropdownValue === "MCQ" ?'block':'none'}}>
+                      <tr><td>  
+                        <div id="divbtn" style={{display:this.state.typeDropdownValue === "MCQ" ?'block':'none'}}>
                         <button type="button" value="save"  className="btn btn-success" onClick={()=>{this.handleSave()}}  disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4 || !this.state.mName}>Save</button>
                         <button type="button" value="Cancel"  className="btn btn-danger" onClick={()=>{this.handleClose()}} disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4  || !this.state.mName}>Cancel</button>
                     </div>
+                    </td></tr>
+                    </tbody>
                     </table> 
-                    </div>
-                    <br />
+                               </div>
+                   
                     
                 </div>
                 <div id="qType" style={{display:this.state.typeDropdownValue === "QR" ||this.state.typeDropdownValue === "sequence" ? 'block' :'none'}}>
                     
                         <table id="tblQpage" text-align="center">
+                        <tbody>
                             <tr>
-                                <textarea className="form-control" rows="3" cols="100" id="txArea"  placeholder="Enter Questions" onChange={(e)=>{this.handleQuestionsqueryData(e)}}/></tr></table><br />
-                   <table ><tr><td><label className="qtbl">Upload Image:</label></td><div>
-        <input type="file" onChange={this.handleChange} className="tblupload"/>
-        <img src={this.state.file} className="uploadImg"  />
-      </div></tr>
-                    </table>
-                    <br />
-                    
-                    <div id="divbtn">
+                                <td>
+                                <textarea className="form-control" ro-ws="5" cols="100" id="txArea"  placeholder="Enter Questions" onChange={(e)=>{this.handleQuestionsqueryData(e)}}/>
+                                </td></tr>
+                                </tbody></table>
+                   
+                    <div className="imgUp">
+                  
+             <span><b>Upload Image:</b></span>
+            <label htmlFor="file" className="qtbl">Upload</label>
+                <input type="file" name="file" id="file" className="inputfile" onChange={this.handleChange} />
+                <img src={this.state.file} className="uploadImg" alt="" />
+                </div>
+                <div id="divbtn">
                         <button type="button" value="save" className="btn btn-success" onClick={()=>{this.handleSave()}} disabled={!this.state.questionsqueryData }>Save</button>
                         <button type="button" value="Cancel" className="btn btn-danger" onClick={()=>{this.handleClose()}} disabled={!this.state.questionsqueryData}>Cancel</button>
                     </div>
@@ -262,4 +279,4 @@ render() {
         )
     }
 }
-export default QuestionsPage;
+export default QuestionsPage; 

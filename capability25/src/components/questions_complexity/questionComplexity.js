@@ -85,6 +85,7 @@ class QuestionComplexity extends Component {
     const dummyRecordsData = this.state.RecordsData;
     dummyRecordsData.name = this.state.name;
     dummyRecordsData.acronym = this.state.acronym;
+    dummyRecordsData.status=this.state.status;
     if(dummyRecordsData.name === "" ||  dummyRecordsData.acronym === ""  ){
       this.setState({
         error:true
@@ -100,6 +101,7 @@ class QuestionComplexity extends Component {
       addComplex: false,
       name: '',
       acronym: '',
+      status:'',
       RecordsData: {
         name: '',
         acronym: '',
@@ -141,7 +143,7 @@ class QuestionComplexity extends Component {
 
     const complexData = this.state.complexData.map((item, index) => {
       return (
-        <tr>
+        <tr key={index}>
           <td>
             {this.state.editElement === index ? <input type="text" className="form-control" onChange={(e) => { this.handleName(e) }} defaultValue={item.name} /> : item.name}</td>
 
@@ -170,7 +172,7 @@ class QuestionComplexity extends Component {
     return (
       <div>
         <Menu />
-        <div class="side-content">
+        <div className="side-content">
         <div>
           <br />
           <button
@@ -190,17 +192,19 @@ class QuestionComplexity extends Component {
                   <br />
         <div className="image-container" style={{ display: this.state.isLoaded === false ? 'block' : 'none' }}>
           <p className="image-holder">
-            <img  src={require('.././12345.gif')}  />
+            <img  src={require('.././12345.gif')}  alt=""/>
           </p>
         </div>
         <div className="card">
           <div className="card-body">
         <table className="table " style={{display: this.state.isLoaded === true ? 'inline-table' : 'none'}}>
           <thead className="thead-bg">
+          <tr>
             <th>Name</th>
             <th>Acronym</th>
             <th>Status</th>
             <th>Action</th>
+            </tr>
           </thead>
           <tbody>
             <tr style={{ display: this.state.addComplex === true ? "contents" : "none" }}>
@@ -210,7 +214,7 @@ class QuestionComplexity extends Component {
               <td>
                 <input type="text" id="acronym" className="form-control" value={this.state.acronym} onChange={(e) => { this.handleAcronym(e) }} />
               </td>
-              <td><label className="switch" id="status"><input type="checkbox" /><span class="slider round"></span></label></td>
+              <td><label className="switch" id="status"><input type="checkbox" /><span className="slider round"></span></label></td>
               <td>
                 <button
                   type="button"

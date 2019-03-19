@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {BrowserRouter,Route,Switch} from 'react-router-dom';
 import QuestionTopic from './components/questions_topic/questionTopic';
 import Dashboard from './components/dashboard/dashboard';
@@ -10,15 +9,12 @@ import Answers from './components/answers/answers';
 import Results from './components/results/results';
 import QuestionsPage from './components/questionspage/questionsPage';
 import Login from './components/login/login';
-
-
 const Routes = (props) => {
     return(
         <BrowserRouter>
         
         <Switch>
-            
-               <Route path='/' component={Login} exact/>
+                <Route path='/' component={Login} exact/>
                 <Route path='/menu/dashboard' component={Dashboard} />
                 <Route path='/menu/questionComplexity' component={QuestionComplexity} />
                 <Route path='/menu/questionTopic' component={QuestionTopic} />
@@ -27,7 +23,7 @@ const Routes = (props) => {
                 <Route path='/menu/answers' component={Answers} />
                 <Route path='/menu/results' component={Results} />
                 <Route path='/menu/questionsPage' component={QuestionsPage} />
-            </Switch>
+         </Switch>
         </BrowserRouter>
     )
 }

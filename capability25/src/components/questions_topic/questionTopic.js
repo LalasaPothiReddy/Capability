@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './questionTopic.css';
-import questionTopicData from '../../services/quetionstopic.json';
 import Menu from '../menu/menu';
 import axios from 'axios';
 
@@ -80,9 +79,7 @@ class QuestionTopic extends Component {
     }
   }
   handleStatus(data, status, index) {
-
     const dummyRecord = this.state.Record;
-
     dummyRecord.name = data.name;
     dummyRecord.acronym = data.acronym;
     dummyRecord.status = status === 0 ? 1 : 0;
@@ -104,6 +101,7 @@ class QuestionTopic extends Component {
     const dummyRecord = this.state.Record;
     dummyRecord.name = this.state.name;
     dummyRecord.acronym = this.state.acronym;
+    dummyRecord.status=this.state.status;
     if (dummyRecord.name === "" || dummyRecord.acronym === "") {
       this.setState({
         error: true
@@ -119,6 +117,7 @@ class QuestionTopic extends Component {
         addTopic: false,
         name: '',
         acronym: '',
+        status:'',
         Record: {
           name: '',
           acronym: '',
@@ -148,7 +147,7 @@ class QuestionTopic extends Component {
     const {topicData,editElement}=this.state;
     const tblTopicData = topicData.map((item, index) => {
       return (
-        <tr>
+        <tr key={index}>
           <td>{editElement === index ? <input type='text' className="form-control" onChange={(e) => { this.handleName(e) }} defaultValue={item.name} /> : item.name}</td>
           <td>{editElement === index ? <input type='text' className="form-control" onChange={(e) => { this.handleAcronym(e) }} defaultValue={item.acronym} /> : item.acronym}</td>
           <td>
@@ -175,7 +174,7 @@ class QuestionTopic extends Component {
     return (
       <div >
         <Menu />
-       <div class="side-content">
+       <div className="side-content">
         <div>
           <br />
           <button type="button" id="add-row" value="add question topic" className="btn btn-primary" onClick={this.handleTopic}>Add Question Topic</button>
@@ -188,7 +187,7 @@ class QuestionTopic extends Component {
         <br />
         <div className="image-container" style={{ display: this.state.isLoaded === false ? 'block' : 'none' }}>
           <p className="image-holder">
-            <img src={require('.././12345.gif')} />
+            <img src={require('.././12345.gif')} alt="" />
           </p>
         </div>
 
@@ -196,12 +195,14 @@ class QuestionTopic extends Component {
           <div className="card-body">
             <table className="table" style={{ display: this.state.isLoaded === true ? 'inline-table' : 'none' }}>
               <thead className="thead-bg"  >
+              <tr>
                 <th>Name</th>
                 <th>Acronym</th>
                 <th>Status</th>
                 <th>Action</th>
+                </tr>
               </thead>
-              <tbody>
+             <tbody>
                 <tr style={{ display: this.state.addTopic ? 'contents' : 'none' }}>
                   <td><input type="text" className="form-control" value={this.state.name} onChange={(e) => this.handleName(e)} /></td>
                   <td><input type="text" className="form-control" value={this.state.acronym} onChange={(e) => this.handleAcronym(e)} /></td>
