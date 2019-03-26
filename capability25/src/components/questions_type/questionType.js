@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import Menu from '../menu/menu';
 import './questionType.css';
+import {Redirect} from 'react-router-dom';
 
 class QuestionType extends Component {
   constructor(props) {
@@ -126,6 +127,7 @@ class QuestionType extends Component {
     })
   }
   componentWillMount() {
+    if (localStorage.getItem('isLoggedIn') != null) {
     axios.get("https://api.myjson.com/bins/8ptfa")
       .then(res => {
         const typeData = res.data;
@@ -134,9 +136,13 @@ class QuestionType extends Component {
           isLoaded:true
         })
       })
+    }
   }
   render() {
-
+    if (localStorage.getItem('isLoggedIn') === null) {
+      return <Redirect to='/login' />
+    }
+    else{
     const typeData = this.state.typeData.map((item, index) => {
 
       return (
@@ -232,6 +238,7 @@ class QuestionType extends Component {
       </div>
     );
   }
+}
 }
 
 export default QuestionType;

@@ -9,12 +9,14 @@ import Answers from './components/answers/answers';
 import Results from './components/results/results';
 import QuestionsPage from './components/questionspage/questionsPage';
 import Login from './components/login/login';
+import Logout from './components/logout/Logout';
 const Routes = (props) => {
     return(
         <BrowserRouter>
         
         <Switch>
                 <Route path='/' component={Login} exact/>
+                <Route path='/login' component={Login } />
                 <Route path='/menu/dashboard' component={Dashboard} />
                 <Route path='/menu/questionComplexity' component={QuestionComplexity} />
                 <Route path='/menu/questionTopic' component={QuestionTopic} />
@@ -23,6 +25,8 @@ const Routes = (props) => {
                 <Route path='/menu/answers' component={Answers} />
                 <Route path='/menu/results' component={Results} />
                 <Route path='/menu/questionsPage' component={QuestionsPage} />
+                <Route path='/menu/logout' component={Logout} />
+            
          </Switch>
         </BrowserRouter>
     )

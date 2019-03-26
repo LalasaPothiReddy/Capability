@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import Menu from '../menu/menu';
 import './questionComplexity.css';
+import {Redirect} from 'react-router-dom';
 
 class QuestionComplexity extends Component {
   constructor(props) {
@@ -130,6 +131,7 @@ class QuestionComplexity extends Component {
   }
 
   componentWillMount() {
+    if (localStorage.getItem('isLoggedIn') != null) {
     axios.get("https://api.myjson.com/bins/9kgti")
       .then(resData => {
         const complexData = resData.data;
@@ -138,9 +140,13 @@ class QuestionComplexity extends Component {
           isLoaded:true
         })
       })
+    }
   }
   render() {
-
+    if (localStorage.getItem('isLoggedIn') === null) {
+      return <Redirect to='/login' />
+    }
+    else{
     const complexData = this.state.complexData.map((item, index) => {
       return (
         <tr key={index}>
@@ -236,6 +242,7 @@ class QuestionComplexity extends Component {
       </div>
     );
   }
+}
 }
 
 export default QuestionComplexity;

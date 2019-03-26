@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import './menu.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink,Redirect } from 'react-router-dom';
+import Logout from '../logout/Logout';
 
 class Menu extends Component {
     componentWillMount() {
         document.body.style = 'background: #e9ecef;';
     }
-    
+    handleLogout(){
+        alert("hello");
+        localStorage.setItem('isLoggedIn',null);
+        return <Redirect to='/login' />
+    }
     render() {
         return (
             <div id="nav">
@@ -14,10 +19,7 @@ class Menu extends Component {
 
                 <header id="header">
                     <div className="container">
-
-
-
-                        <nav id="nav-menu-container">
+                       <nav id="nav-menu-container">
                             <ul className="nav-menu">
                             <li><img src={require('.././arohaLogo.png')} alt=""/></li>
                                 <li ><NavLink to='/menu/dashboard' className="menu-active">Dasboard</NavLink></li>
@@ -43,7 +45,8 @@ class Menu extends Component {
                                     <ul className="dropdown-menu">
                                         <li><NavLink to='/menu/results' className="navlink">Results</NavLink></li>
                                     </ul></li>
-
+                                     <li style={{'float':'right'}}><NavLink to='/menu/logout' className="navlink">Logout</NavLink></li> 
+                                         <li><button type="button" onClick={()=>{this.handleLogout()}}>Logout</button></li> 
                             </ul>
 
                         </nav>

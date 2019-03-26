@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import './questionPage.css';
 import Menu from '../menu/menu';
 import axios from 'axios';
+import {Redirect} from 'react-router-dom';
 
 class QuestionsPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            mName:'',
-            sName:'',
+            selectedCheckbox:'',
+            isCheckboxSelected:'',
+            selectedRadio:'',
             questionsqueryData:'',
             file: null,
             topicData:[],
@@ -21,16 +23,17 @@ class QuestionsPage extends Component {
             option2:'',
             option3:'',
             option4:'',
+            isRadioSelected:'',
             questionData:'',
             RecordData:{
-                sName:'',
+                selectedRadio:'',
                 option1:'',
                 option2:'',
                 option3:'',
                 option4:'',
                 questionData:'',
                 mName:'',
-                questionsqueryData:''
+                questionsqueryData:''               
             },
         }
     }
@@ -57,16 +60,16 @@ class QuestionsPage extends Component {
     handleQuestions = (e) => {
         this.setState({
             typeDropdownValue:e.target.value,
-               sName:'',
-                option1:'',
-                option2:'',
-                option3:'',
-                option4:'',
-                questionData:'',
-                mName:'',
-                questionsqueryData:'',
-                topicDropdownValue:'',
-                complexityDropdownValue:'',
+            // selectedRadio:'',
+            //     option1:'',
+            //     option2:'',
+            //     option3:'',
+            //     option4:'',
+            //     questionData:'',
+            //     mName:'',
+            //     questionsqueryData:'',
+            //     topicDropdownValue:'',
+            //     complexityDropdownValue:'',
            
         })      
        
@@ -76,6 +79,7 @@ class QuestionsPage extends Component {
         this.setState({
             topicDropdownValue: e.target.value
         })
+        
     }
 
     handleComplexityDropdown = (e) => {
@@ -93,56 +97,98 @@ this.setState({
             questionsqueryData:e.target.value
         })
     }
-    handleAnswer(e){
+    handleAnswer1(e){
         this.setState({
-           // [e.target.name]:e.target.value
-           sName:e.target.value
+            selectedRadio:e,
+            isRadioSelected:1
         })
-      
     }
+
+    handleAnswer2(e){
+        this.setState({
+            selectedRadio:e,
+            isRadioSelected:2
+        })     
+    }
+
+    handleAnswer3(e){
+        this.setState({
+            selectedRadio:e,
+            isRadioSelected:3
+        })
+    }
+
+    handleAnswer4(e){
+        this.setState({
+            selectedRadio:e,
+            isRadioSelected:4
+        })
+    }
+
     handleChange =(e) =>{
         this.setState({
             file: URL.createObjectURL(e.target.files[0])
           })
     }
-    handleCAnswer(e){
+    handleCAnswer1(e){
             this.setState({
-                mName:e.target.value
+                selectedCheckbox:e,
+                isCheckboxSelected:'1'
             })
     }
+    handleCAnswer2(e){
+        this.setState({
+            selectedCheckbox:e,
+            isCheckboxSelected:'2'
+        })
+}
+handleCAnswer3(e){
+    this.setState({
+        selectedCheckbox:e,
+        isCheckboxSelected:'3'
+    })
+}
+handleCAnswer4(e){
+    this.setState({
+        selectedCheckbox:e,
+        isCheckboxSelected:'4'
+    })
+}
     handleSave(){
         const dummyRecordData=this.state.RecordData;
-       dummyRecordData.sName=this.state.sName;
+       dummyRecordData.selectedRadio=this.state.selectedRadio;
        dummyRecordData.option1=this.state.option1;
        dummyRecordData.option2=this.state.option2;
        dummyRecordData.option3=this.state.option3;
        dummyRecordData.option4=this.state.option4;
        dummyRecordData.questionData=this.state.questionData;
-       dummyRecordData.mName=this.state.mName;
+       dummyRecordData.selectedCheckbox=this.state.selectedCheckbox;
        dummyRecordData.questionsqueryData=this.state.questionsqueryData;
        dummyRecordData.topicDropdownValue=this.state.topicDropdownValue;
        dummyRecordData.complexityDropdownValue=this.state.complexityDropdownValue;
        dummyRecordData.typeDropdownValue=this.state.typeDropdownValue;
        this.setState({
            RecordData:dummyRecordData,
-        sName:'',
+           selectedRadio:'',
         option1:'',
         option2:'',
         option3:'',
         option4:'',
         questionData:'',
-        mName:'',
+        selectedCheckbox:'',
         questionsqueryData:'',
         topicDropdownValue:'',
         complexityDropdownValue:'',
-        typeDropdownValue:''
+        //isRadioSelected :5 
        })
+       alert(this.state.isRadioSelected);
        alert("data saved successfully" +JSON.stringify(this.state.RecordData));
     }
     handleClose(){
         alert("cancel successful");
     }
     componentWillMount() {
+        if (localStorage.getItem('isLoggedIn') != null) {
                axios.all([
             axios.get('https://api.myjson.com/bins/bcrmu'),
             axios.get('https://api.myjson.com/bins/9kgti'),
@@ -158,9 +204,13 @@ this.setState({
                           isLoaded:true
                         })
           }))
-         
+        }
         }
 render() {
+    if (localStorage.getItem('isLoggedIn') === null) {
+        return <Redirect to='/login' />
+      }
+      else{
         return (
             <div>
                 <Menu />
@@ -173,7 +223,7 @@ render() {
                         <option>--select--</option>
                         {
                             this.state.topicData.map(topic => (
-                                <option key={topic.name}>{topic.name}</option>
+                                <option value={topic.id}>{topic.name}</option>
                             ))
                         }
                         </select>
@@ -221,30 +271,31 @@ render() {
                         
                          <table className="ans" style={{display:this.state.typeDropdownValue === "SCQ" ?'block':'none'}}>
                          <tbody>
-                        <tr><td><input type="radio" className="ans1" name="sName" onChange={(e)=>{this.handleAnswer(e)}} /></td></tr>
-                       <tr><td><input type="radio"   className="ans1" onChange={(e)=>{this.handleAnswer(e)}} name="sName" /></td></tr>
-                        <tr><td><input type="radio"   className="ans1" name="sName" onChange={(e)=>{this.handleAnswer(e)}}/></td></tr>
-                        <tr><td><input type="radio" className="ans2" name="sName" onChange={(e)=>{this.handleAnswer(e)}} />
+                        <tr><td><input type="radio" className="ans1" selected={this.state.isRadioSelected === 1} name="selectedRadio" onChange={(e)=>{this.handleAnswer1(this.state.option1)}} /></td></tr>
+                       <tr><td><input type="radio"   className="ans1" selected={this.state.isRadioSelected === 2} onChange={(e)=>{this.handleAnswer2(this.state.option2)}} name="selectedRadio" /></td></tr>
+                        <tr><td><input type="radio"   className="ans1" selected={this.state.isRadioSelected === 3}  name="selectedRadio" onChange={(e)=>{this.handleAnswer3(this.state.option3)}}/></td></tr>
+                        <tr><td><input type="radio" className="ans2" selected={this.state.isRadioSelected === 4} name="selectedRadio" onChange={(e)=>{this.handleAnswer4(this.state.option4)}} />
                          </td></tr>
                          <tr><td>
                          <div id="divbtn" style={{display:this.state.typeDropdownValue === "SCQ" ?'block':'none'}}>
-                        <button type="button" value="save"  className="btn btn-success" onClick={()=>{this.handleSave()}}  disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4 || !this.state.sName }>Save</button>
-                        <button type="button" value="Cancel"  className="btn btn-danger" onClick={()=>{this.handleClose()}} disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4  || !this.state.sName }>Cancel</button>
+                        <button type="button" value="save"  className="btn btn-success" onClick={()=>{this.handleSave()}}  disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4 || !this.state.selectedRadio }>Save</button>
+                        <button type="button" value="Cancel"  className="btn btn-danger" onClick={()=>{this.handleClose()}} disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4  || !this.state.selectedRadio }>Cancel</button>
                     </div>
                     </td></tr>
                     </tbody>
                     </table> 
                     <table className="ans" style={{display:this.state.typeDropdownValue === "MCQ" ?'block':'none'}}>
+                    
                     <tbody>
-                        <tr><td ><input type="checkbox" className="ans1" name="mName" onChange={(e)=>{this.handleCAnswer(e)}} /></td></tr>
-                       <tr><td><input type="checkbox"   className="ans1" onChange={(e)=>{this.handleCAnswer(e)}} name="mName" /></td></tr>
-                        <tr><td><input type="checkbox"   className="ans1" name="mName" onChange={(e)=>{this.handleCAnswer(e)}}/></td></tr>
-                        <tr><td><input type="checkbox" className="ans2" name="mName" onChange={(e)=>{this.handleCAnswer(e)}} />
+                        <tr><td ><input type="checkbox" className="ans1" name="isCheckboxSelected" selected={this.state.isCheckboxSelected === 1} onChange={(e)=>{this.handleCAnswer1(this.state.option1)}} /></td></tr>
+                       <tr><td><input type="checkbox"   className="ans1" name="isCheckboxSelected" selected={this.state.isCheckboxSelected === 2} onChange={(e)=>{this.handleCAnswer2(this.state.option2)}}  /></td></tr>
+                        <tr><td><input type="checkbox"   className="ans1" name="isCheckboxSelected" selected={this.state.isCheckboxSelected === 3} onChange={(e)=>{this.handleCAnswer3(this.state.option3)}}/></td></tr>
+                        <tr><td><input type="checkbox" className="ans2" name="isCheckboxSelected" selected={this.state.isCheckboxSelected === 4} onChange={(e)=>{this.handleCAnswer4(this.state.option4)}} />
                          </td></tr>
                       <tr><td>  
                         <div id="divbtn" style={{display:this.state.typeDropdownValue === "MCQ" ?'block':'none'}}>
-                        <button type="button" value="save"  className="btn btn-success" onClick={()=>{this.handleSave()}}  disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4 || !this.state.mName}>Save</button>
-                        <button type="button" value="Cancel"  className="btn btn-danger" onClick={()=>{this.handleClose()}} disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4  || !this.state.mName}>Cancel</button>
+                        <button type="button" value="save"  className="btn btn-success" onClick={()=>{this.handleSave()}}  disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4 || !this.state.isCheckboxSelected}>Save</button>
+                        <button type="button" value="Cancel"  className="btn btn-danger" onClick={()=>{this.handleClose()}} disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4  || !this.state.isCheckboxSelected}>Cancel</button>
                     </div>
                     </td></tr>
                     </tbody>
@@ -278,5 +329,6 @@ render() {
             </div>
         )
     }
+}
 }
 export default QuestionsPage; 

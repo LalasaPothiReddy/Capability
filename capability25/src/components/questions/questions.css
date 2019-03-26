@@ -127,3 +127,6 @@ NavLink{
         margin-left: -50%;
         margin-top: -50%;   
     }
+    a:hover{
+        color:white;
+    }

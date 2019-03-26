@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './questionTopic.css';
 import Menu from '../menu/menu';
 import axios from 'axios';
+import {Redirect} from 'react-router-dom';
 
 class QuestionTopic extends Component {
   constructor(props) {
@@ -32,10 +33,12 @@ class QuestionTopic extends Component {
     this.setState({
       acronym: e.target.value
     })
-    console.log(this.state.acronym);
+    //console.log(this.state.acronym);
   }
+  //componentDidUpdate(){
   handleTopic = () => {
 
+  
     if (this.state.addTopic === false) {
       this.setState({
         addTopic: true
@@ -98,6 +101,18 @@ class QuestionTopic extends Component {
     });
   }
   handleSaveData() {
+    const userQTopic={
+      name:this.state.name,
+      acronym:this.state.acronym
+    }
+    
+    axios.post(`https://jsonplaceholder.typicode.com/users/`, { userQTopic })
+          .then(res => {
+            //console.log(res);
+            //console.log(res.data);
+            const userQuestionTopic=res.data;
+            console.log(userQuestionTopic);
+          })
     const dummyRecord = this.state.Record;
     dummyRecord.name = this.state.name;
     dummyRecord.acronym = this.state.acronym;
@@ -127,6 +142,7 @@ class QuestionTopic extends Component {
     }
   }
   componentWillMount() {
+    if (localStorage.getItem('isLoggedIn') != null) {
     axios.get("https://api.myjson.com/bins/bcrmu")
       .then(response => {
         console.log(response.data);
@@ -137,6 +153,7 @@ class QuestionTopic extends Component {
         })
       })
   }
+}
   handleClick() {
     this.setState({
       error: false
@@ -144,6 +161,10 @@ class QuestionTopic extends Component {
 
   }
   render() {
+    if (localStorage.getItem('isLoggedIn') === null) {
+      return <Redirect to='/login' />
+    }
+    else{
     const {topicData,editElement}=this.state;
     const tblTopicData = topicData.map((item, index) => {
       return (
@@ -225,6 +246,7 @@ class QuestionTopic extends Component {
       </div>
     );
   }
+}
 }
 
 export default QuestionTopic;

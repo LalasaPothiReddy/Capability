@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import Menu from '../menu/menu';
 import './questions.css';
+import {Redirect} from 'react-router-dom';
 
 class Questions extends Component {
 constructor(props) {
@@ -116,6 +117,7 @@ constructor(props) {
         });
     }
     componentWillMount() {
+        if (localStorage.getItem('isLoggedIn') != null) {
         axios.all([
         axios.get('https://api.myjson.com/bins/l03ey'),
         axios.get('https://api.myjson.com/bins/9kgti')
@@ -130,7 +132,7 @@ constructor(props) {
                     })
       }))
      
-
+    }
         }
       handleClick(){
         this.setState({
@@ -138,7 +140,10 @@ constructor(props) {
         })
 }
     render() {
-      
+        if (localStorage.getItem('isLoggedIn') === null) {
+            return <Redirect to='/login' />
+          }
+          else{ 
         return (
             
             <div>
@@ -180,11 +185,11 @@ constructor(props) {
      <td>
     <select className="form-control" disabled={!(index === this.state.currentElement)}>
     {this.state.complexDropdownData.map((drpData,index)=>{
-       if(drpData.name === questionsData.questioncomplexity_name){
+      
                return(
-                <option key={index} value={drpData.name === questionsData.questioncomplexity_name ? true : false}>{ drpData.name}</option>
+                <option key={index} selected={drpData.name === questionsData.questioncomplexity_name} value={drpData.name === questionsData.questioncomplexity_name ? true : false}>{ drpData.name}</option>
                )
-            }
+            
        })}</select>
     </td>
 
@@ -209,5 +214,6 @@ constructor(props) {
             </div>
         )
     }
+  }
 }
 export default Questions;
