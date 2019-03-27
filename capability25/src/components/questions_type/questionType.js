@@ -39,6 +39,7 @@ class QuestionType extends Component {
    
   }
   handleEdit(data, id) {
+    console.log(id +1)
     this.setState({
       name: data.name,
       acronym: data.acronym,
@@ -85,6 +86,18 @@ class QuestionType extends Component {
     })
   }
   handleSaveData() {
+    const userQType={
+      name:this.state.name,
+      acronym:this.state.acronym
+    }
+    axios.post(`http://127.0.0.1:8000/questions/type/`,userQType)
+    .then(res => {
+   //axiosconsole.log(res);
+   //console.log(res.data);
+   const userQuestionType=res.data;
+   console.log(userQType);
+   console.log(userQuestionType);
+ })
     const dummyRecordsData = this.state.RecordsData;
     dummyRecordsData.name = this.state.name;
     dummyRecordsData.acronym = this.state.acronym;
@@ -128,7 +141,7 @@ class QuestionType extends Component {
   }
   componentWillMount() {
     if (localStorage.getItem('isLoggedIn') != null) {
-    axios.get("https://api.myjson.com/bins/8ptfa")
+    axios.get("http://127.0.0.1:8000/questions/type/")
       .then(res => {
         const typeData = res.data;
         this.setState({
@@ -222,7 +235,7 @@ class QuestionType extends Component {
                   type="button"
                   id="qtopicbutton"
                   className="btn btn-primary"
-                  value="edit"
+                  value="save"
                   onClick={(e) => this.handleSaveData(e)}
                 >
                   Save

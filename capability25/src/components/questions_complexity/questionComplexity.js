@@ -83,6 +83,18 @@ class QuestionComplexity extends Component {
    
   }
   handleSaveData() {
+    const userQComplexity={
+      name:this.state.name,
+      acronym:this.state.acronym
+    }
+    axios.post(`http://127.0.0.1:8000/questions/complexity/`,userQComplexity)
+    .then(res => {
+   //axiosconsole.log(res);
+   //console.log(res.data);
+   const userQuestionComplexity=res.data;
+   console.log(userQComplexity);
+   console.log(userQuestionComplexity);
+ })
     const dummyRecordsData = this.state.RecordsData;
     dummyRecordsData.name = this.state.name;
     dummyRecordsData.acronym = this.state.acronym;
@@ -132,7 +144,7 @@ class QuestionComplexity extends Component {
 
   componentWillMount() {
     if (localStorage.getItem('isLoggedIn') != null) {
-    axios.get("https://api.myjson.com/bins/9kgti")
+    axios.get("http://127.0.0.1:8000/questions/complexity/")
       .then(resData => {
         const complexData = resData.data;
         this.setState({
@@ -226,7 +238,7 @@ class QuestionComplexity extends Component {
                   type="button"
                   id="qtopicbutton"
                   className="btn btn-primary"
-                  value="edit"
+                  value="save"
                   onClick={(e) => this.handleSaveData(e)}
                 >
                   Save

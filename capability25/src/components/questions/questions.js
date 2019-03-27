@@ -119,8 +119,8 @@ constructor(props) {
     componentWillMount() {
         if (localStorage.getItem('isLoggedIn') != null) {
         axios.all([
-        axios.get('https://api.myjson.com/bins/l03ey'),
-        axios.get('https://api.myjson.com/bins/9kgti')
+        axios.get('http://127.0.0.1:8000/questions/addquestion/'),
+        axios.get('http://127.0.0.1:8000/questions/complexity/')
       ])
       .then(axios.spread((questionsDatas, complexDropdownData) => {
         // do something with both responses

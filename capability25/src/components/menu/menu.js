@@ -7,11 +7,11 @@ class Menu extends Component {
     componentWillMount() {
         document.body.style = 'background: #e9ecef;';
     }
-    handleLogout(){
-        alert("hello");
-        localStorage.setItem('isLoggedIn',null);
-        return <Redirect to='/login' />
-    }
+    // handleLogout(){
+    //     alert("hello");
+    //     localStorage.setItem('isLoggedIn',null);
+    //     return <Redirect to='/login' />
+    // }
     render() {
         return (
             <div id="nav">
@@ -45,8 +45,8 @@ class Menu extends Component {
                                     <ul className="dropdown-menu">
                                         <li><NavLink to='/menu/results' className="navlink">Results</NavLink></li>
                                     </ul></li>
-                                     <li style={{'float':'right'}}><NavLink to='/menu/logout' className="navlink">Logout</NavLink></li> 
-                                         <li><button type="button" onClick={()=>{this.handleLogout()}}>Logout</button></li> 
+                                     <li><NavLink to='/menu/logout' className="navlink" onClick={()=>{this.handleLogout()}}>Logout</NavLink></li> 
+                                         {/* <li><button type="button" onClick={()=>{this.handleLogout()}}>Logout</button></li>  */}
                             </ul>
 
                         </nav>

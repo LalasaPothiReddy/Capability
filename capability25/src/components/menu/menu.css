@@ -12,11 +12,7 @@
     height: 74px;
     background: black;
     }
-   
-   
-       
-   
-    a{
+   a{
        color:white ;
         text-decoration:none !important;
     } 
@@ -24,24 +20,19 @@
         color:white;
         text-decoration:none !important;
     }
-   
-    img{
+   img{
         width: 72px;
         height: 36px;
     }
     #tblPaimgge{
         width:100%;
     }
-   
-
-    
 body {
     background: #fff;
     color: #2f3138;
     font-family: "Open Sans", sans-serif;
   }
-  
- li a {
+li a {
     color:white;
     transition: 0.5s;
   }

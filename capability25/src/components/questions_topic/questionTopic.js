@@ -55,6 +55,23 @@ class QuestionTopic extends Component {
     });
   }
   handleSave(index) {
+    console.log(index+1);
+    const userTopicEdit={
+      name:this.state.name,
+      acronym:this.state.acronym,
+      status:this.state.status,
+    }
+      axios.put(`http://127.0.0.1:8000/questions/topicid/index+1/`,userTopicEdit,
+      )
+      .then(res => {
+     //axiosconsole.log(res);
+     //console.log(res.data);
+     const userQuestionTopicEdit=res.data;
+     console.log(userTopicEdit);
+     console.log(userQuestionTopicEdit);
+     console.log(userQuestionTopicEdit.id);
+   })
+    
     const dummyRecord = this.state.Record;
     dummyRecord.name = this.state.name;
     dummyRecord.acronym = this.state.acronym;
@@ -105,12 +122,19 @@ class QuestionTopic extends Component {
       name:this.state.name,
       acronym:this.state.acronym
     }
-    
-    axios.post(`https://jsonplaceholder.typicode.com/users/`, { userQTopic })
-          .then(res => {
-            //console.log(res);
+    // const headers={
+    //   // 'Access-Control-Allow-Origin': '*',
+    //   'Content-Type': 'application/json',
+    //   // 'Authorization': 'JWT fefege...',
+    //   //'Accept': 'application/json',    
+    // }
+  
+    axios.post(`http://127.0.0.1:8000/questions/topic/`,userQTopic)
+             .then(res => {
+            //axiosconsole.log(res);
             //console.log(res.data);
             const userQuestionTopic=res.data;
+            console.log(userQTopic);
             console.log(userQuestionTopic);
           })
     const dummyRecord = this.state.Record;
@@ -143,7 +167,7 @@ class QuestionTopic extends Component {
   }
   componentWillMount() {
     if (localStorage.getItem('isLoggedIn') != null) {
-    axios.get("https://api.myjson.com/bins/bcrmu")
+    axios.get("http://127.0.0.1:8000/questions/topic/")
       .then(response => {
         console.log(response.data);
         const topicData = response.data;
@@ -233,7 +257,7 @@ class QuestionTopic extends Component {
                       <span className="slider round" />
                     </label>
                   </td>
-                  <td><button type="button" id="qtopicbutton" className="btn btn-primary" value="edit" onClick={() => { this.handleSaveData() }}>Save</button></td>
+                  <td><button type="button" id="qtopicbutton" className="btn btn-primary" value="save" onClick={() => { this.handleSaveData() }}>Save</button></td>
                 </tr>
                 {tblTopicData}
               </tbody>

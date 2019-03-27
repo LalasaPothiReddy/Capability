@@ -155,6 +155,21 @@ handleCAnswer4(e){
     })
 }
     handleSave(){
+        const userQuestion={
+            description:this.state.questionData,
+            questiontype:this.state.typeDropdownValue,
+            questioncomplexity:this.state.complexityDropdownValue
+
+        }
+        axios.post(`http://127.0.0.1:8000/questions/addquestion/`,userQuestion)
+    .then(res => {
+   //axiosconsole.log(res);
+   //console.log(res.data);
+   const userQuestionResponse=res.data;
+   console.log(userQuestion);
+   console.log(userQuestionResponse);
+ })
+
         const dummyRecordData=this.state.RecordData;
        dummyRecordData.selectedRadio=this.state.selectedRadio;
        dummyRecordData.option1=this.state.option1;
@@ -190,9 +205,9 @@ handleCAnswer4(e){
     componentWillMount() {
         if (localStorage.getItem('isLoggedIn') != null) {
                axios.all([
-            axios.get('https://api.myjson.com/bins/bcrmu'),
-            axios.get('https://api.myjson.com/bins/9kgti'),
-            axios.get('https://api.myjson.com/bins/8ptfa')
+            axios.get('http://127.0.0.1:8000/questions/topic/'),
+            axios.get('http://127.0.0.1:8000/questions/complexity/'),
+            axios.get('http://127.0.0.1:8000/questions/type/')
           ])
           .then(axios.spread((topicData, complexData,typeData) => {
             // do something with both responses
@@ -278,7 +293,7 @@ render() {
                          </td></tr>
                          <tr><td>
                          <div id="divbtn" style={{display:this.state.typeDropdownValue === "SCQ" ?'block':'none'}}>
-                        <button type="button" value="save"  className="btn btn-success" onClick={()=>{this.handleSave()}}  disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4 || !this.state.selectedRadio }>Save</button>
+                        <button type="button" value="save"  className="btn btn-success" onClick={()=>{this.handleSave()}} disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4  || !this.state.selectedRadio } >Save</button>
                         <button type="button" value="Cancel"  className="btn btn-danger" onClick={()=>{this.handleClose()}} disabled={!this.state.questionData || !this.state.option1 || !this.state.option2 || !this.state.option3 || !this.state.option4  || !this.state.selectedRadio }>Cancel</button>
                     </div>
                     </td></tr>
