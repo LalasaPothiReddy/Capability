@@ -37,17 +37,38 @@ class QuestionComplexity extends Component {
       acronym: data.acronym,
       editElement: id
     });
+    console.log(this.state.editElement+2);
   }
 
   handleSave(index) {
+     console.log(this.state.editElement+1);
+    console.log(index+1);
+    const userComplexityEdit={
+      name:this.state.name,
+      acronym:this.state.acronym,
+      status:this.state.status === 0 ? 0 : 1,
+      //idValue:this.state.editElement,
+      }
+   
+      axios.put(`http://127.0.0.1:8000/questions/complexityid/${index+1}/`,userComplexityEdit,
+      )
+      .then(res => {
+     //axiosconsole.log(res);
+     //console.log(res.data);
+     const userQuestioComplexityEdit=res.data;
+     console.log(userComplexityEdit);
+     console.log(userQuestioComplexityEdit);
+     console.log(userQuestioComplexityEdit.id);
+   })
     const dummyRecord = this.state.RecordsData;
     dummyRecord.name = this.state.name;
     dummyRecord.acronym = this.state.acronym;
-    dummyRecord.status = this.state.status;
-    if(dummyRecord.name === "" ||  dummyRecord.acronym === ""  ){
-      this.setState({
-        error:true
-      })
+    dummyRecord.status = this.state.status === 0 ? 0 : 1;
+    if(dummyRecord.name === "" ||  dummyRecord.acronym === "" || dummyRecord.status === ""  ){
+      
+      // this.setState({
+      //   error:true
+      // })
     }
     else{
     const dummycomplexData = this.state.complexData;
@@ -56,12 +77,13 @@ class QuestionComplexity extends Component {
       RecordsData: dummyRecord,
       editElement: -1,
       complexData: dummycomplexData,
-
-      name: '',
-      acronym: '',
+        name: '',
+        acronym: '',
+        status:'',
       RecordsData: {
         name: '',
-        acronym: ''
+        acronym: '',
+        status:''
       }
     });
   }
@@ -85,7 +107,8 @@ class QuestionComplexity extends Component {
   handleSaveData() {
     const userQComplexity={
       name:this.state.name,
-      acronym:this.state.acronym
+      acronym:this.state.acronym,
+      
     }
     axios.post(`http://127.0.0.1:8000/questions/complexity/`,userQComplexity)
     .then(res => {
@@ -151,6 +174,8 @@ class QuestionComplexity extends Component {
           complexData: complexData,
           isLoaded:true
         })
+        console.log(complexData);
+        
       })
     }
   }
@@ -171,7 +196,7 @@ class QuestionComplexity extends Component {
           </td>
            <td>
               <label className="switch" id="status">
-                <input type="checkbox"  checked={item.status=== 0 ?true : false} disabled = {this.state.editElement === index?false:true} onChange={() => this.handleStatus(item, item.status, index)}/>
+                <input type="checkbox"  checked={item.status=== 0 ?false : true} disabled = {this.state.editElement === index?false:true} onChange={() => this.handleStatus(item, item.status, index)}/>
                 <span className="slider round" />
               </label>
             </td>

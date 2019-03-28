@@ -15,9 +15,7 @@ class Menu extends Component {
     render() {
         return (
             <div id="nav">
-
-
-                <header id="header">
+                    <header id="header">
                     <div className="container">
                        <nav id="nav-menu-container">
                             <ul className="nav-menu">
@@ -45,14 +43,17 @@ class Menu extends Component {
                                     <ul className="dropdown-menu">
                                         <li><NavLink to='/menu/results' className="navlink">Results</NavLink></li>
                                     </ul></li>
-                                     <li><NavLink to='/menu/logout' className="navlink" onClick={()=>{this.handleLogout()}}>Logout</NavLink></li> 
+                                     
                                          {/* <li><button type="button" onClick={()=>{this.handleLogout()}}>Logout</button></li>  */}
                             </ul>
 
                         </nav>
                     </div>
+                    
                 </header>
-
+                  <div className="menu-logout">
+                        <ul><li><NavLink to='/menu/logout' className="navlink" onClick={()=>{this.handleLogout()}}>Logout</NavLink></li> </ul>
+                </div>
             </div>
 
         )
